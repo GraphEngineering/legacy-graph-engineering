@@ -1,0 +1,7 @@
+.awcache/
+.history/
+node_modules/
+lib/
+.idea/
+.npmrc
+*.iml
