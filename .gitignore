@@ -5,3 +5,4 @@ lib/
 .idea/
 .npmrc
 *.iml
+.DS_Store
