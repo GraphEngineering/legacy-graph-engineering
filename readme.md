@@ -1,6 +1,6 @@
-# About this Project
+# graph-engineering
 
-This project is meant to serve as a starting point for React applications.
+TODO
 
 ## Getting Started
 
@@ -16,7 +16,7 @@ Once this has finished, you should be able to get started by running
 npm run dev
 ```
 
-## Deploying
+### Deploying
 
 First bump the version
 ```
@@ -27,19 +27,19 @@ Then run
 npm publish
 ```
 
-## Testing
+### Testing
 
-### Run tests once
+#### Run tests once
 ```
 npm run test
 ```
 
-### Coverage report
+#### Coverage report
 ```
 npm run test -- --coverage
 ```
 
-### Rerun tests when files change
+#### Rerun tests when files change
 ```
 npm run test -- --watch
 ```
