@@ -1,8 +1,7 @@
 {
   "name": "graph-engineering",
   "version": "0.0.0",
-  "description":
-    "User interface for creating and interacting with GraphQL schemas.",
+  "description": "User interface for creating and interacting with GraphQL schemas.",
   "main": "dist/index.js",
   "scripts": {
     "dev": "parcel src/index.html"
@@ -17,6 +16,7 @@
     "@cryptograph/typescript-tooling": "^1.0.1",
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
+    "node-sass": "^4.7.2",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.7.0",
     "typescript": "^2.7.1"
