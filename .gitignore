@@ -1,8 +1,2 @@
-.awcache/
-.history/
-node_modules/
-lib/
-.idea/
-.npmrc
-*.iml
-.DS_Store
+node_modules
+.cache
