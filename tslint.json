@@ -1,3 +1,6 @@
 {
-  "extends": "./node_modules/@cryptograph/typescript-tooling/tslint.json"
+  "extends": [
+    "./node_modules/@cryptograph/typescript-tooling/tslint.json",
+    "tslint-react"
+  ]
 }

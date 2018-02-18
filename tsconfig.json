@@ -1,5 +1,5 @@
 {
-  "extends": "./node_modules/@cryptograph/typescript-tooling/tsconfig",
+  "extends": "./node_modules/@cryptograph/typescript-tooling/tsconfig.json",
   "compilerOptions": {
     "lib": ["dom"],
     "jsx": "react"
