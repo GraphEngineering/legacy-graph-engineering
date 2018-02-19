@@ -1,20 +1,15 @@
 import * as React from "react";
-import { StatelessComponent } from "react";
 
-import { graphql, QueryProps } from "react-apollo";
+import { graphql, QueryProps, ChildProps } from "react-apollo";
 import gql from "graphql-tag";
 
-interface Props {
+type Props = {
   name: string;
-}
-
-type Response = QueryProps & {
-  data: { message: string };
 };
 
-const App: StatelessComponent<Response> = props => (
-  <div>{props.data.message}</div>
-);
+interface Data {
+  message: string;
+}
 
 const query = gql`
   query($name: String!) {
@@ -22,6 +17,6 @@ const query = gql`
   }
 `;
 
-export default graphql<Response, Props, Response>(query, {
-  options: props => ({ variables: { name: props.name } })
-})(App);
+export default graphql<Data, Props>(query, {
+  options: props => ({ variables: props })
+})(props => <div>{props.data.message}</div>);
