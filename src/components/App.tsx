@@ -1,22 +1,16 @@
+import gql from "graphql-tag";
 import * as React from "react";
 
-import { graphql, QueryProps, ChildProps } from "react-apollo";
-import gql from "graphql-tag";
-
-type Props = {
-  name: string;
-};
-
-interface Data {
-  message: string;
-}
+import { AppQuery as Data, AppQueryVariables as Props } from "../graphql";
+import { GraphComponent, withGraphQL } from "./withGraphQL";
 
 const query = gql`
-  query($name: String!) {
+  query App($name: String!) {
     message(name: $name) @client
   }
 `;
 
-export default graphql<Data, Props>(query, {
-  options: props => ({ variables: props })
-})(props => <div>{props.data.message}</div>);
+const App: GraphComponent<Props, Data> = props =>
+  props.data ? <div>{props.data.message}</div> : <div>Loading...</div>;
+
+export default withGraphQL(App, query);

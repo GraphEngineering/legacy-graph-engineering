@@ -1,10 +1,12 @@
 {
   "name": "graph-engineering",
   "version": "0.0.0",
-  "description":
-    "User interface for creating and interacting with GraphQL schemas.",
+  "description": "User interface for creating and interacting with GraphQL schemas.",
   "main": "dist/index.js",
   "scripts": {
+    "clean": "rimraf build tmp",
+    "generate-schema-json": "apollo-codegen introspect-schema src/graphql/schema.graphql --output tmp/schema.json",
+    "generate-graphql-types": "npm run generate-schema-json && apollo-codegen generate src/**/*.tsx --schema tmp/schema.json --target typescript --output src/graphql/queries.ts",
     "dev": "parcel src/index.html"
   },
   "author": "CryptoGraph",
@@ -20,10 +22,12 @@
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
-    "@cryptograph/typescript-tooling": "^1.0.2",
+    "@cryptograph/typescript-tooling": "^1.0.4",
     "@types/graphql": "^0.12.4",
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
+    "apollo-codegen": "^0.18.6",
+    "clean": "^4.0.2",
     "node-sass": "^4.7.2",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.7.0",

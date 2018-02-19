@@ -1,13 +1,13 @@
 import * as React from "react";
 import { render } from "react-dom";
 
+import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { withClientState } from "apollo-link-state";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloProvider } from "react-apollo";
 import { print } from "graphql";
+import { ApolloProvider } from "react-apollo";
 
-import { schema, defaults, resolvers } from "./schema";
+import { defaults, resolvers, schema } from "./graphql";
 
 import App from "./components/App";
 

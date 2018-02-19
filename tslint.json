@@ -1,6 +1,6 @@
 {
-  "extends": [
-    "./node_modules/@cryptograph/typescript-tooling/tslint.json",
-    "tslint-react"
-  ]
+  "extends": ["./node_modules/@cryptograph/typescript-tooling/tslint.json"],
+  "rules": {
+    "variable-name": [true, "allow-pascal-case"]
+  }
 }

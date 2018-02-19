@@ -1,5 +1,5 @@
-declare var require: any;
-export const schema = require("./App.graphql");
+export * from "./schema.graphql";
+export * from "./operations";
 
 export const defaults = {
   test: "HA!"
