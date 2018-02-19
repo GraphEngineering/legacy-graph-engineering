@@ -5,7 +5,6 @@ import { ApolloClient } from "apollo-client";
 import { withClientState } from "apollo-link-state";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloProvider } from "react-apollo";
-
 import { print } from "graphql";
 
 import { schema, defaults, resolvers } from "./schema";
@@ -26,7 +25,7 @@ const client = new ApolloClient({
 
 render(
   <ApolloProvider client={client}>
-    <App />
+    <App name="Todd" />
   </ApolloProvider>,
   document.getElementById("app")
 );

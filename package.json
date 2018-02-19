@@ -1,7 +1,8 @@
 {
   "name": "graph-engineering",
   "version": "0.0.0",
-  "description": "User interface for creating and interacting with GraphQL schemas.",
+  "description":
+    "User interface for creating and interacting with GraphQL schemas.",
   "main": "dist/index.js",
   "scripts": {
     "dev": "parcel src/index.html"
