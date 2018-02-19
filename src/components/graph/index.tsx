@@ -4,7 +4,7 @@ import { d3Types } from "./types";
 import Links from "./Links";
 import Nodes from "./Nodes";
 import Labels from "./Labels";
-// import "../styles/App.css";
+import "./App.css";
 
 interface Props {
   width: number;
@@ -32,7 +32,23 @@ export default class Graph extends React.Component<Props, {}> {
   }
 
   componentDidMount() {
-    this.simulation.nodes(this.props.graph.nodes).on("tick", this.onTick);
+      const node = d3.selectAll(".node");
+      const link = d3.selectAll(".link");
+      const label = d3.selectAll(".label");
+
+      function onTick() {
+          link
+              .attr("x1", (d: any) => d.source.x)
+              .attr("y1", (d: any) => d.source.y)
+              .attr("x2", (d: any) => d.target.x)
+              .attr("y2", (d: any) => d.target.y);
+
+          node.attr("cx", (d: any) => d.x).attr("cy", (d: any) => d.y);
+
+          label.attr("x", (d: any) => d.x + 5).attr("y", (d: any) => d.y + 5);
+      }
+
+    this.simulation.nodes(this.props.graph.nodes).on("tick", onTick);
   }
 
   render() {
@@ -47,19 +63,4 @@ export default class Graph extends React.Component<Props, {}> {
     );
   }
 
-    private onTick = () => {
-        const node = d3.selectAll(".node");
-        const link = d3.selectAll(".link");
-        const label = d3.selectAll(".label");
-
-        link
-            .attr("x1", (d: any) => d.source.x)
-            .attr("y1", (d: any) => d.source.y)
-            .attr("x2", (d: any) => d.target.x)
-            .attr("y2", (d: any) => d.target.y);
-
-        node.attr("cx", (d: any) => d.x).attr("cy", (d: any) => d.y);
-
-        label.attr("x", (d: any) => d.x + 5).attr("y", (d: any) => d.y + 5);
-    };
 }

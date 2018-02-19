@@ -4,7 +4,7 @@ import { StatelessComponent } from "react";
 import { graphql, QueryProps } from "react-apollo";
 import gql from "graphql-tag";
 import Graph from "./graph";
-import * as data from "./graph/testData";
+import data from "./graph/testData";
 
 interface Props {
   name: string;
@@ -17,11 +17,11 @@ type Response = QueryProps & {
 const App: StatelessComponent<Response> = props => (
   <div>
     <div>{props.data.message}</div>
-    {/*<Graph*/}
-      {/*width={window.screen.availWidth}*/}
-      {/*height={window.screen.availHeight}*/}
-      {/*graph={data}*/}
-    {/*/>,*/}
+    <Graph
+      width={window.screen.availWidth}
+      height={window.screen.availHeight}
+      graph={data}
+    />
   </div>
 );
 
