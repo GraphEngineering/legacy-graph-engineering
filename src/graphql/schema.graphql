@@ -1,3 +1,4 @@
 type Query {
   message(name: String!): String!
+  test: String
 }

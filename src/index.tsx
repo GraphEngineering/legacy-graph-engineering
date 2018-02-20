@@ -25,7 +25,7 @@ const client = new ApolloClient({
 
 render(
   <ApolloProvider client={client}>
-    <App name="Todd" />
+    <App />
   </ApolloProvider>,
   document.getElementById("app")
 );
