@@ -2,11 +2,9 @@ import * as React from "react";
 import { graphql, ChildProps, OperationOption } from "react-apollo";
 import { DocumentNode } from "graphql";
 
-export type GraphComponent<Props, Data> = React.ComponentType<
+export type GraphComponent<Props = {}, Data = {}> = React.ComponentType<
   ChildProps<Props, Data>
 >;
-
-export interface GraphClassComponent<Props, Data> extends React.Component<ChildProps<Props, Data>>;
 
 export function withGraphQL<Props, Data>(
   component: GraphComponent<Props, Data>,
