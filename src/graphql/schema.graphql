@@ -1,4 +1,8 @@
 type Query {
-  message(name: String!): String!
-  test: String
+  test: String!
+  blah: AnotherType!
+}
+
+type AnotherType {
+  what: String!
 }

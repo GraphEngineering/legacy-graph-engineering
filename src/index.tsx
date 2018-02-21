@@ -7,7 +7,7 @@ import { withClientState } from "apollo-link-state";
 import { print } from "graphql";
 import { ApolloProvider } from "react-apollo";
 
-import { defaults, resolvers, schema } from "./graphql";
+import { schema, defaults, resolvers } from "./graphql";
 
 import App from "./components/App";
 
