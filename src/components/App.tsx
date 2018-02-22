@@ -3,4 +3,8 @@ import gql from "graphql-tag";
 
 import SchemaEditor from "./SchemaEditor";
 
-export default () => <SchemaEditor />;
+export default () => (
+  <div>
+    <SchemaEditor />
+  </div>
+);
