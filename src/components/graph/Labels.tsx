@@ -13,6 +13,10 @@ interface InternalProps {
 class Label extends React.Component<InternalProps, {}> {
   ref: SVGTextElement;
 
+  constructor(props: any) {
+    super(props);
+  }
+
   componentDidMount() {
     d3.select(this.ref).data([this.props.node]);
   }

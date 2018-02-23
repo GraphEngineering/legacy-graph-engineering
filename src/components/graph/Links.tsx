@@ -3,15 +3,19 @@ import * as d3 from "d3";
 import { d3Types } from "./types";
 
 interface Props {
-    links: d3Types.d3Link[];
+  links: d3Types.d3Link[];
 }
 
 interface InternalProps {
-    link: d3Types.d3Link;
+  link: d3Types.d3Link;
 }
 
 class Link extends React.Component<InternalProps, {}> {
   ref: SVGLineElement;
+
+  constructor(props: any, context?: any) {
+    super(props, context);
+  }
 
   componentDidMount() {
     d3.select(this.ref).data([this.props.link]);

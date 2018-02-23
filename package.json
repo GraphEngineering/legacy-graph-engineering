@@ -20,10 +20,10 @@
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
-    "@cryptograph/typescript-tooling": "^1.0.2",
+    "@cryptograph/typescript-tooling": "^1.0.4",
+    "@types/d3": "^4.13.0",
     "@types/graphql": "^0.12.4",
     "@types/react": "^16.0.36",
-    "@types/d3": "^4.13.0",
     "@types/react-dom": "^16.0.3",
     "node-sass": "^4.7.2",
     "tslint": "^5.9.1",
