@@ -32,23 +32,9 @@ export default class Graph extends React.Component<Props, {}> {
   }
 
   componentDidMount() {
-    const node = d3.selectAll(".node");
-    const link = d3.selectAll(".link");
-    const label = d3.selectAll(".label");
-
-    function onTick() {
-      link
-        .attr("x1", (d: any) => d.source.x)
-        .attr("y1", (d: any) => d.source.y)
-        .attr("x2", (d: any) => d.target.x)
-        .attr("y2", (d: any) => d.target.y);
-
-      node.attr("cx", (d: any) => d.x).attr("cy", (d: any) => d.y);
-
-      label.attr("x", (d: any) => d.x + 5).attr("y", (d: any) => d.y + 5);
-    }
-
-    this.simulation.nodes(this.props.graph.nodes).on("tick", onTick);
+    this.simulation
+        .nodes(this.props.graph.nodes)
+        .on("tick", this.handleOnTick());
   }
 
   render() {
@@ -61,5 +47,23 @@ export default class Graph extends React.Component<Props, {}> {
         <Labels nodes={graph.nodes} />
       </svg>
     );
+  }
+
+  private handleOnTick = () => {
+      const node = d3.selectAll(".node");
+      const link = d3.selectAll(".link");
+      const label = d3.selectAll(".label");
+
+      return () => {
+          link
+              .attr("x1", (d: any) => d.source.x)
+              .attr("y1", (d: any) => d.source.y)
+              .attr("x2", (d: any) => d.target.x)
+              .attr("y2", (d: any) => d.target.y);
+
+          node.attr("cx", (d: any) => d.x).attr("cy", (d: any) => d.y);
+
+          label.attr("x", (d: any) => d.x + 5).attr("y", (d: any) => d.y + 5);
+      }
   }
 }

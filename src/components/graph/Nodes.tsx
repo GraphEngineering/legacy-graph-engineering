@@ -15,10 +15,6 @@ interface InternalProps {
 class Node extends React.Component<InternalProps, {}> {
   ref: SVGCircleElement;
 
-  constructor(props: any) {
-    super(props);
-  }
-
   componentDidMount() {
     d3.select(this.ref).data([this.props.node]);
   }

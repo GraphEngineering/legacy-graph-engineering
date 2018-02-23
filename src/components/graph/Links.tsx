@@ -13,10 +13,6 @@ interface InternalProps {
 class Link extends React.Component<InternalProps, {}> {
   ref: SVGLineElement;
 
-  constructor(props: any, context?: any) {
-    super(props, context);
-  }
-
   componentDidMount() {
     d3.select(this.ref).data([this.props.link]);
   }
