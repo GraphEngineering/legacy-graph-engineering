@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "description": "User interface for creating and interacting with GraphQL schemas.",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GraphEngineering/graph-engineering.git"
+  },
   "scripts": {
     "clean": "rimraf build tmp",
     "generate-schema-json": "apollo-codegen introspect-schema src/graphql/schema.graphql --output tmp/schema.json",
@@ -13,15 +17,19 @@
   "license": "MIT",
   "dependencies": {
     "graphql": "^0.13.1",
-    "graphql-tag": "^2.7.3",
+    "graphql-tag": "^2.8.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "upgrade": "^1.1.0"
   },
   "devDependencies": {
-    "@cryptograph/typescript-tooling": "^1.0.4",
+    "@cryptograph/typescript-tooling": "^1.0.5",
     "@types/graphql": "^0.12.4",
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
+    "@types/react-redux": "^5.0.15",
     "apollo-codegen": "^0.18.6",
     "clean": "^4.0.2",
     "node-sass": "^4.7.2",

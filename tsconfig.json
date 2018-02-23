@@ -2,7 +2,6 @@
   "extends": "./node_modules/@cryptograph/typescript-tooling/tsconfig.json",
   "compilerOptions": {
     "lib": [
-      "es7",
       "dom"
     ],
     "jsx": "react"
