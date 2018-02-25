@@ -2,6 +2,7 @@ import * as React from "react";
 import { Dispatch, connect } from "react-redux";
 
 import { Graph } from "../graphql";
+import { Action } from "../types/generated";
 
 const mapStateToProps = (state: Graph) => ({
   query: { App: { count: state.count } }

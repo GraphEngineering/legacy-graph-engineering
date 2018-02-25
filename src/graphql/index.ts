@@ -1,4 +1,7 @@
+import { graphqlSync } from "graphql";
 import gql from "graphql-tag";
+
+console.log(graphqlSync);
 
 export interface Graph {
   count: number;
