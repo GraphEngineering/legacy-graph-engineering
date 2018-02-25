@@ -2,6 +2,10 @@
   background-color: #333;
 }
 
+.node-texts {
+    color: black;
+}
+
 .nodes {
   stroke: #fff;
   stroke-width: 1.5px;

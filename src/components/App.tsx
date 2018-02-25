@@ -18,9 +18,7 @@ const App: StatelessComponent<Response> = props => (
   <div>
     <div>{props.data.message}</div>
     <Graph
-      width={window.screen.availWidth}
-      height={window.screen.availHeight}
-      graph={data}
+        tree={data}
     />
   </div>
 );
