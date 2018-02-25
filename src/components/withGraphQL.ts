@@ -1,28 +1,28 @@
 import * as React from "react";
 import { Dispatch, connect } from "react-redux";
 
+import { DocumentNode } from "graphql";
+
 import { Graph } from "../graphql";
 import { Action } from "../types/generated";
 
-const mapStateToProps = (state: Graph) => ({
+import Operations from "../generated/App";
+
+const mapStateToProps = (document: DocumentNode) => (state: Graph) => ({
   query: { App: { count: state.count } }
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+const mapDispatchToProps = (document: DocumentNode) => (
+  dispatch: Dispatch<Graph>
+) => ({
   mutation: {
     Increment: () => dispatch({ type: "Increment" })
   }
 });
 
-export type GraphQLComponent<
-  Query = {},
-  Mutation = {}
-> = React.StatelessComponent<{
-  query: { App: Query };
-  mutation: { Increment: Dispatch<Mutation> };
-}>;
+export type GraphQLComponent = React.StatelessComponent<Operations>;
 
-export const withGraphQL = <Query = {}, Mutation = {}>(
-  component: GraphQLComponent<Query, Mutation>,
-  graphQLOperations: { query?: Query; mutation?: Mutation }
-) => connect(mapStateToProps, mapDispatchToProps)(component);
+export const withGraphQL = (component: GraphQLComponent) => (
+  document: DocumentNode
+) =>
+  connect(mapStateToProps(document), mapDispatchToProps(document))(component);

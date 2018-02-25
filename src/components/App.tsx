@@ -3,21 +3,20 @@ import gql from "graphql-tag";
 
 import { GraphQLComponent, withGraphQL } from "./withGraphQL";
 
-import { Query, Mutation } from "../generated/App";
+import Operations from "../generated/App";
 
-const App: GraphQLComponent<Query, Mutation> = ({ query, mutation }) => (
+const App: GraphQLComponent = ({ query, mutation }) => (
   <h1 onClick={mutation.Increment}>{query.App.count}</h1>
 );
 
-export default withGraphQL<Query, Mutation>(App, {
-  query: gql`
+export default withGraphQL(App)(
+  gql`
     query App {
       count
     }
-  `,
-  mutation: gql`
+
     mutation Increment {
       increment
     }
   `
-});
+);
