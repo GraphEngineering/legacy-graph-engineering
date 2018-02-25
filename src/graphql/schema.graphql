@@ -1,3 +1,7 @@
 type Query {
-  message: String!
+  count: Int!
+}
+
+type Mutation {
+  increment: Int!
 }

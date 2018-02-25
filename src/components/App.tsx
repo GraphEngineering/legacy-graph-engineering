@@ -1,18 +1,25 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import gql from "graphql-tag";
 
-import { AppQuery as Props } from "../types/generated/operations";
-import State from "../types/state";
+import { GraphQLComponent, withGraphQL } from "./withGraphQL";
+import {
+  AppQuery as Query,
+  IncrementMutation as Mutation
+} from "../types/generated/operations";
 
-const query = gql`
-  query App {
-    message
-  }
-`;
+const App: GraphQLComponent<Query, Mutation> = ({ query, mutation }) => (
+  <h1 onClick={mutation.Increment}>{query.App.count}</h1>
+);
 
-const App: React.StatelessComponent<Props> = props => <h1>{props.message}</h1>;
-
-const mapStateToProps = (state: State) => state;
-
-export default connect(mapStateToProps)(App);
+export default withGraphQL<Query, Mutation>(App, {
+  query: gql`
+    query App {
+      count
+    }
+  `,
+  mutation: gql`
+    mutation Increment {
+      increment
+    }
+  `
+});

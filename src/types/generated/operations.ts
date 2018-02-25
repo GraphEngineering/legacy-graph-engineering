@@ -2,5 +2,9 @@
 //  This file was automatically generated and should not be edited.
 
 export interface AppQuery {
-  message: string,
+  count: number,
+};
+
+export interface IncrementMutation {
+  increment: number,
 };
