@@ -5,3 +5,8 @@ dist
 tmp
 
 yarn-error.log
+
+*.iml
+*.log
+.awcache/
+.idea/
