@@ -5,17 +5,17 @@ import { GraphQLComponent, withGraphQL } from "./withGraphQL";
 
 import Operations from "../generated/App";
 
-const App: GraphQLComponent = ({ query, mutation }) => (
-  <h1 onClick={mutation.Increment}>{query.App.count}</h1>
+const App: GraphQLComponent<Operations> = ({ query, mutation }) => (
+  <h1 onClick={mutation}>{query.count}</h1>
 );
 
-export default withGraphQL(App)(
+export default withGraphQL<Operations>(App)(
   gql`
-    query App {
+    query {
       count
     }
 
-    mutation Increment {
+    mutation {
       increment
     }
   `
