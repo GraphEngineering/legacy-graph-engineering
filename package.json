@@ -18,12 +18,13 @@
   "dependencies": {
     "graphql": "^0.13.1",
     "graphql-tag": "^2.8.0",
+    "graphql-tools": "^2.21.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
-    "upgrade": "^1.1.0",
-    "redux-devtools-extension": "^2.13.2"
+    "redux-devtools-extension": "^2.13.2",
+    "upgrade": "^1.1.0"
   },
   "devDependencies": {
     "@cryptograph/typescript-tooling": "^1.0.5",

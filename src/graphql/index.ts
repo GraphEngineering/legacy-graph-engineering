@@ -1,7 +1,9 @@
 // import { graphqlSync } from "graphql";
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 
-// console.log(graphqlSync);
+// tslint:disable-next-line
+export const schemaAST = require("./schema.graphql");
+declare const require: any;
 
 export interface Graph {
   count: number;
@@ -11,24 +13,11 @@ export const defaults: Graph = {
   count: 0
 };
 
-const query = (graph: Graph, document: any) => graph.count;
-
 export const resolvers = {
   Mutation: {
-    increment: (graph: Graph): Graph => {
-      const count = query(
-        graph,
-        gql`
-          query Count {
-            count
-          }
-        `
-      );
-
-      return {
-        ...graph,
-        count: count + 1
-      };
-    }
+    increment: (graph: Graph): Graph => ({
+      ...graph,
+      count: graph.count + 1
+    })
   }
 };

@@ -1,8 +1,8 @@
-import { Action } from "../types/generated";
-
 export default interface App {
   query: {
-    count: number;
+    data: { count: number };
   };
-  mutation: () => Action;
+  mutation: {
+    increment: () => any;
+  };
 };

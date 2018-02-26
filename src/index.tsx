@@ -3,17 +3,13 @@ import { render } from "react-dom";
 
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-
 import { devToolsEnhancer } from "redux-devtools-extension";
 
 import { Graph, defaults, resolvers } from "./graphql";
-import { Action } from "./types/generated";
-
 import App from "./components/App";
 
-const reducer = (state: Graph = defaults, action: Action) => {
-  return resolvers.Mutation.increment(state);
-};
+const reducer = (state: Graph = defaults) =>
+  resolvers.Mutation.increment(state);
 
 const store = createStore(
   reducer,
