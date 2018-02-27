@@ -1,5 +1,7 @@
 // import { graphqlSync } from "graphql";
-// import gql from "graphql-tag";
+// import gql from "graphql-tag"
+
+import { makeExecutableSchema } from "graphql-tools";
 
 // tslint:disable-next-line
 export const schemaAST = require("./schema.graphql");
@@ -21,3 +23,8 @@ export const resolvers = {
     })
   }
 };
+
+export const schema = makeExecutableSchema({
+  typeDefs: schemaAST,
+  resolvers
+});

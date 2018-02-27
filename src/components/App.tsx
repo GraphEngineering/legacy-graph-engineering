@@ -9,7 +9,7 @@ const App: GraphQLComponent<Query, Mutation> = ({ query, mutation }) => (
   <h1 onClick={mutation.increment}>{query.data && query.data.count}</h1>
 );
 
-export default withGraphQL<Operations>(App)(
+export default withGraphQL<Query, Mutation>(App)(
   gql`
     query {
       count

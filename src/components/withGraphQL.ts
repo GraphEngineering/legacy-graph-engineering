@@ -1,17 +1,12 @@
 import * as React from "react";
 
-import {
-  MapStateToProps,
-  MapDispatchToPropsFunction,
-  connect
-} from "react-redux";
+import { Action, Dispatch } from "redux";
+import { connect } from "react-redux";
 
 import {
   DocumentNode,
   OperationDefinitionNode,
-  DefinitionNode,
   ExecutionResult,
-  SelectionNode,
   graphqlSync,
   print
 } from "graphql";
@@ -25,10 +20,7 @@ declare module "graphql" {
   ) => ExecutionResult;
 }
 
-import { makeExecutableSchema } from "graphql-tools";
-
-import { Graph, schemaAST, resolvers } from "../graphql";
-import { Action } from "redux";
+import { Graph, schema } from "../graphql";
 
 export type GraphQLComponent<
   Query = {},
@@ -37,83 +29,82 @@ export type GraphQLComponent<
   { mutation: Mutation } & { query: ExecutionResult & { data: Query } }
 >;
 
-interface Definitions {
-  queryDefinition?: OperationDefinitionNode & { operation: "query" };
-  mutationDefinition?: OperationDefinitionNode & { operation: "mutation" };
-}
-
 export const withGraphQL = <Query, Mutation>(
   component: GraphQLComponent<Query, Mutation>
-) => (operationsDocument: DocumentNode) => {
-  const {
-    queryDefinition,
-    mutationDefinition
-  }: Definitions = operationsDocument.definitions.reduce(
-    (definitions: Definitions, definition: DefinitionNode) => {
-      if (definition.kind !== "OperationDefinition") {
-        return definitions;
-      }
-
-      switch (definition.operation) {
-        case "query":
-          return { ...definitions, queryDefinition: definition };
-        case "mutation":
-          return { ...definitions, mutationDefinition: definition };
-      }
-
-      return definitions;
-    },
-    {}
+) => (document: DocumentNode) => {
+  const { queryDefinition, mutationDefinition } = definitionsFromDocument(
+    document
   );
 
-  return connect(
-    queryDefinition && mapStateToProps(queryDefinition),
-    mutationDefinition && mapDispatchToProps(mutationDefinition)
-  )(component);
+  const mapStateToProps =
+    queryDefinition && mapperFromQueryDefinition(queryDefinition);
+
+  const mapDispatchToProps =
+    mutationDefinition && mapperFromMutationDefinition(mutationDefinition);
+
+  return connect(mapStateToProps, mapDispatchToProps)(component);
 };
 
-const schema = makeExecutableSchema({
-  typeDefs: schemaAST,
-  resolvers
-});
-
-interface QueryProps {
-  query: ExecutionResult;
+interface Definitions {
+  queryDefinition?: OperationDefinitionNode;
+  mutationDefinition?: OperationDefinitionNode;
 }
 
-const mapStateToProps = (
-  operationDefinition: OperationDefinitionNode
-): MapStateToProps<QueryProps, {}, Graph> => {
-  const operation = print(operationDefinition);
+const definitionsFromDocument = (document: DocumentNode): Definitions =>
+  document.definitions.reduce((definitions, definition) => {
+    if (definition.kind !== "OperationDefinition") {
+      return definitions;
+    }
+
+    switch (definition.operation) {
+      case "query":
+        return { ...definitions, queryDefinition: definition };
+      case "mutation":
+        return { ...definitions, mutationDefinition: definition };
+    }
+
+    return definitions;
+  }, {});
+
+type QueryMapper = (
+  state: Graph
+) => {
+  query: ExecutionResult;
+};
+
+const mapperFromQueryDefinition = (
+  definition: OperationDefinitionNode
+): QueryMapper => {
+  const operation = print(definition);
   return state => ({
     query: graphqlSync(schema, operation, state)
   });
 };
 
-interface MutationProps {
-  mutation: MutationFields;
-}
+type MutationMapper = (
+  dispatch: Dispatch<any>
+) => {
+  mutation: {
+    [fieldName: string]: () => Action;
+  };
+};
 
-export interface MutationFields {
-  [fieldName: string]: () => Action;
-}
-
-const mapDispatchToProps = (
-  operationDefinition: OperationDefinitionNode
-): MapDispatchToPropsFunction<MutationProps, {}> => dispatch => ({
-  mutation: operationDefinition.selectionSet.selections.reduce(
-    (mutationFields: MutationFields, selection: SelectionNode) => {
+const mapperFromMutationDefinition = (
+  definition: OperationDefinitionNode
+): MutationMapper => dispatch => ({
+  mutation: definition.selectionSet.selections.reduce(
+    (mutations, selection) => {
       if (
         selection.kind === "FragmentSpread" ||
         selection.kind === "InlineFragment"
       ) {
-        return mutationFields;
+        return mutations;
       }
 
-      const mutation = print(operationDefinition);
+      const mutation = print(definition);
 
       return {
-        ...mutationFields,
+        ...mutations,
         [selection.name.value]: () => dispatch({ type: mutation })
       };
     },
