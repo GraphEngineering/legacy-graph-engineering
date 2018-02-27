@@ -17,30 +17,39 @@ import {
 } from "graphql";
 
 declare module "graphql" {
-  export const graphqlSync: any; // undefined in @types/graphql
+  // undefined in @types/graphql
+  export const graphqlSync: (
+    schema: any,
+    source: any,
+    rootValue: any
+  ) => ExecutionResult;
 }
 
 import { makeExecutableSchema } from "graphql-tools";
 
 import { Graph, schemaAST, resolvers } from "../graphql";
+import { Action } from "redux";
 
-export type GraphQLComponent<Operations> = React.StatelessComponent<
-  Operations & { query: ExecutionResult }
+export type GraphQLComponent<
+  Query = {},
+  Mutation = {}
+> = React.StatelessComponent<
+  { mutation: Mutation } & { query: ExecutionResult & { data: Query } }
 >;
 
-export const withGraphQL = <Operations>(
-  component: GraphQLComponent<Operations>
-) => (operationsDocument: DocumentNode) => {
-  interface OperationDefinitions {
-    queryDefinition?: OperationDefinitionNode & { operation: "query" };
-    mutationDefinition?: OperationDefinitionNode & { operation: "mutation" };
-  }
+interface Definitions {
+  queryDefinition?: OperationDefinitionNode & { operation: "query" };
+  mutationDefinition?: OperationDefinitionNode & { operation: "mutation" };
+}
 
+export const withGraphQL = <Query, Mutation>(
+  component: GraphQLComponent<Query, Mutation>
+) => (operationsDocument: DocumentNode) => {
   const {
     queryDefinition,
     mutationDefinition
-  }: OperationDefinitions = operationsDocument.definitions.reduce(
-    (definitions: OperationDefinitions, definition: DefinitionNode) => {
+  }: Definitions = operationsDocument.definitions.reduce(
+    (definitions: Definitions, definition: DefinitionNode) => {
       if (definition.kind !== "OperationDefinition") {
         return definitions;
       }
@@ -59,7 +68,7 @@ export const withGraphQL = <Operations>(
 
   return connect(
     queryDefinition && mapStateToProps(queryDefinition),
-    mutationDefinition && (mapDispatchToProps(mutationDefinition) as any) // TODO
+    mutationDefinition && mapDispatchToProps(mutationDefinition)
   )(component);
 };
 
@@ -68,9 +77,13 @@ const schema = makeExecutableSchema({
   resolvers
 });
 
+interface QueryProps {
+  query: ExecutionResult;
+}
+
 const mapStateToProps = (
   operationDefinition: OperationDefinitionNode
-): MapStateToProps<{ query: ExecutionResult }, any, Graph> => {
+): MapStateToProps<QueryProps, {}, Graph> => {
   const operation = print(operationDefinition);
   return state => ({
     query: graphqlSync(schema, operation, state)
@@ -82,7 +95,7 @@ interface MutationProps {
 }
 
 export interface MutationFields {
-  [fieldName: string]: () => any;
+  [fieldName: string]: () => Action;
 }
 
 const mapDispatchToProps = (

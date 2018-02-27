@@ -3,9 +3,9 @@ import gql from "graphql-tag";
 
 import { GraphQLComponent, withGraphQL } from "./withGraphQL";
 
-import Operations from "../generated/App";
+import { Query, Mutation } from "../generated/App";
 
-const App: GraphQLComponent<Operations> = ({ query, mutation }) => (
+const App: GraphQLComponent<Query, Mutation> = ({ query, mutation }) => (
   <h1 onClick={mutation.increment}>{query.data && query.data.count}</h1>
 );
 

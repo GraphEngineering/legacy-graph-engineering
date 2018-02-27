@@ -1,8 +1,7 @@
-export default interface App {
-  query: {
-    data: { count: number };
-  };
-  mutation: {
-    increment: () => any;
-  };
-};
+export interface Query {
+  count: number;
+}
+
+export interface Mutation {
+  increment: () => any;
+}
