@@ -33,6 +33,8 @@
     "@types/react-dom": "^16.0.3",
     "@types/react-redux": "^5.0.15",
     "apollo-codegen": "^0.18.6",
+    "babel-plugin-remove-comments": "^2.0.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "clean": "^4.0.2",
     "node-sass": "^4.7.2",
     "tslint": "^5.9.1",
