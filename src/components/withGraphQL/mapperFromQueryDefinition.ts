@@ -17,6 +17,8 @@ declare module "graphql" {
 
 import { Graph, schema } from "../../graphql";
 
+export type QueryMapper<Query> = (state: Graph) => QueryProps<Query>;
+
 export interface QueryProps<Query> {
   query: QueryExecutionResult<Query>;
 }
@@ -24,8 +26,6 @@ export interface QueryProps<Query> {
 interface QueryExecutionResult<Query> extends ExecutionResult {
   data?: Query;
 }
-
-export type QueryMapper<Query> = (state: Graph) => QueryProps<Query>;
 
 export const mapperFromQueryDefinition = <Query>(
   definition: OperationDefinitionNode

@@ -2,13 +2,13 @@ import { Dispatch } from "react-redux";
 
 import { OperationDefinitionNode, print } from "graphql";
 
-export interface MutationProps<Mutation> {
-  mutation: Mutation;
-}
-
 export type MutationMapper<Mutation> = (
   dispatch: Dispatch<any>
 ) => MutationProps<Mutation>;
+
+export interface MutationProps<Mutation> {
+  mutation: Mutation;
+}
 
 export const mapperFromMutationDefinition = <Mutation>(
   definition: OperationDefinitionNode
