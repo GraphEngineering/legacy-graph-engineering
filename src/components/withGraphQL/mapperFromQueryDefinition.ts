@@ -18,7 +18,11 @@ declare module "graphql" {
 import { Graph, schema } from "../../graphql";
 
 export interface QueryProps<Query> {
-  query: Query & ExecutionResult;
+  query: QueryExecutionResult<Query>;
+}
+
+interface QueryExecutionResult<Query> extends ExecutionResult {
+  data?: Query;
 }
 
 export type QueryMapper<Query> = (state: Graph) => QueryProps<Query>;
@@ -28,6 +32,6 @@ export const mapperFromQueryDefinition = <Query>(
 ): QueryMapper<Query> => {
   const source = print(definition);
   return state => ({
-    query: graphqlSync(schema, source, state) as Query
+    query: graphqlSync(schema, source, state) as QueryExecutionResult<Query>
   });
 };
