@@ -1,7 +1,7 @@
 import resolvers from "./resolvers";
 import { fetchSchema } from "./utils";
 
-export * from "./graph";
-export { resolvers };
+const schema = fetchSchema("app", resolvers);
 
-export const schema = fetchSchema("app", resolvers);
+export * from "./graph";
+export { schema, resolvers };

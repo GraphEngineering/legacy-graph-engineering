@@ -4,10 +4,7 @@ import resolvers from "./resolvers";
 import { GraphQLSchema } from "graphql";
 import { IResolvers as Resolvers } from "graphql-tools/dist/Interfaces";
 
-export * from "./graph";
-export { resolvers };
-
-// declared in `index.d.ts`, require is declared since parcel uses it
+// `*.graphql` is in `index.d.ts`, require is declared since parcel uses it
 // tslint:disable-next-line
 declare const require: any;
 
