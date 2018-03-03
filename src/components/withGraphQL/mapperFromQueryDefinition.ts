@@ -11,7 +11,7 @@ declare module "graphql" {
   export const graphqlSync: (
     schema: GraphQLSchema,
     source: string,
-    rootValue: {}
+    rootValue?: {}
   ) => ExecutionResult;
 }
 
