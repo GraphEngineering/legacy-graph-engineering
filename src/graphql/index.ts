@@ -4,4 +4,4 @@ import { fetchSchema } from "./utils";
 export * from "./graph";
 export { resolvers };
 
-export const schema = fetchSchema("./schema.graphql", resolvers);
+export const schema = fetchSchema("app", resolvers);
