@@ -1,15 +1,15 @@
 import * as React from "react";
 
-import { introspectionQuery } from "graphql";
+// import { introspectionQuery } from "graphql";
 import gql from "graphql-tag";
 
 import { GraphQLComponent, withGraphQL } from "./withGraphQL";
 import { Query } from "../generated/Schema";
 
-const Schema: GraphQLComponent<Query> = ({ query }) => (
+const Schema: GraphQLComponent<Query> = () => (
   <div>
     hi
-    {query.data && query.data.schema.queryType}
+    {/* {query.data && query.data.schema.queryType} */}
   </div>
 );
 

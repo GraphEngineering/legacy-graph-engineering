@@ -3,15 +3,17 @@ import { Graph } from "./graph";
 import { graphqlSync, introspectionQuery } from "graphql";
 import { fetchSchema } from "./utils";
 
-const schemaToEdit = fetchSchema("target");
-
-console.log(graphqlSync(schemaToEdit, introspectionQuery));
-
-const targetIntrospection = graphqlSync(schemaToEdit, introspectionQuery);
+const targetIntrospection = graphqlSync(
+  fetchSchema("target"),
+  introspectionQuery
+);
 
 export default {
   Query: {
-    schema: (): any => targetIntrospection
+    schema: () => {
+      debugger;
+      return { targetIntrospection };
+    }
   },
   Mutation: {
     increment: (graph: Graph): Graph => ({
