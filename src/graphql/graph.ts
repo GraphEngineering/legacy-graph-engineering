@@ -1,7 +1,6 @@
 import { IntrospectionSchema, graphqlSync, introspectionQuery } from "graphql";
 import { fetchSchema } from "./utils";
 
-debugger;
 const targetIntrospection = graphqlSync(
   fetchSchema("target"),
   introspectionQuery
