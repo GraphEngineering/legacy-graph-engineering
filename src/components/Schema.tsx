@@ -7,14 +7,22 @@ import { GraphQLComponent, withGraphQL } from "./withGraphQL";
 import { Query } from "../generated/Schema";
 
 const Schema: GraphQLComponent<Query> = ({ query }) => (
-  <div>hi</div>
-  // <h1>{JSON.stringify(query)}</h1>
+  <div>
+      hi
+      {query.data && query.data.schema.queryType}
+  </div>
 );
 
 console.log(introspectionQuery.replace("__schema", "schema"));
 
 export default withGraphQL<Query>(Schema)(
   gql`
-    ${introspectionQuery.replace("__schema", "schema")}
+    query {
+        schema {
+            queryType {
+                name
+            }
+        }
+    }
   `
 );
