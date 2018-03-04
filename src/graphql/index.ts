@@ -1,18 +1,19 @@
-import { IntrospectionSchema, graphqlSync, introspectionQuery } from "graphql";
 import { fetchSchema } from "./utils";
 
 // this interface should eventually be generated
 export interface Graph {
   count: number;
-  schema: IntrospectionSchema;
+  // schema: IntrospectionSchema;
 }
 
 export const defaults: Graph = {
-  count: 0,
-  schema: graphqlSync(fetchSchema("target"), introspectionQuery).data.__schema
+  count: 0
 };
 
 export const resolvers = {
+  Query: {
+    schema: () => fetchSchema("target")
+  },
   Mutation: {
     increment: (graph: Graph): Graph => ({
       ...graph,
