@@ -1,6 +1,6 @@
 import * as React from "react";
 
-// import { introspectionQuery } from "graphql";
+import { introspectionQuery } from "graphql";
 import gql from "graphql-tag";
 
 import { GraphQLComponent, withGraphQL } from "./withGraphQL";
@@ -14,7 +14,7 @@ export default withGraphQL<Query>(Schema)(
   gql`
     query {
       schema {
-        queryType {
+        types {
           name
         }
       }
