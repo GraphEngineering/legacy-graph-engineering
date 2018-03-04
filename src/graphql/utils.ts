@@ -1,10 +1,9 @@
-import { makeExecutableSchema } from "graphql-tools";
-
-import resolvers from "./resolvers";
 import { GraphQLSchema } from "graphql";
+
+import { makeExecutableSchema } from "graphql-tools";
 import { IResolvers as Resolvers } from "graphql-tools/dist/Interfaces";
 
-// `*.graphql` is in `index.d.ts`, require is declared since parcel uses it
+// `*.graphql` is in `index.d.ts`, `require` is declared since parcel uses it
 // tslint:disable-next-line
 declare const require: any;
 

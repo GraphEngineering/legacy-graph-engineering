@@ -19,7 +19,10 @@ import definitionsFromDocument from "./definitionsFromDocument";
 export type GraphQLComponent<
   Query = {},
   Mutation = {}
-> = React.StatelessComponent<QueryProps<Query> & MutationProps<Mutation>>;
+> = React.StatelessComponent<GraphQLComponentProps<Query, Mutation>>;
+
+export type GraphQLComponentProps<Query, Mutation> = QueryProps<Query> &
+  MutationProps<Mutation>;
 
 export const withGraphQL = <Query = {}, Mutation = {}>(
   component: GraphQLComponent<Query, Mutation>

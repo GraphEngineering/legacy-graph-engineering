@@ -1,19 +1,9 @@
 import {
-  GraphQLSchema,
   ExecutionResult,
   OperationDefinitionNode,
   print,
   graphqlSync
 } from "graphql";
-
-declare module "graphql" {
-  // undefined in @types/graphql
-  export const graphqlSync: (
-    schema: GraphQLSchema,
-    source: string,
-    rootValue?: {}
-  ) => ExecutionResult;
-}
 
 import { Graph, schema } from "../../graphql";
 
