@@ -1,6 +1,12 @@
 type Query {
   count: Int!
+  fragmentTest: FragmentTest!
+
   schema: __Schema!
+}
+
+type FragmentTest {
+  field: String!
 }
 
 type Mutation {

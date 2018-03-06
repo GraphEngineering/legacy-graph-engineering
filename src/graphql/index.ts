@@ -5,10 +5,16 @@ const targetSchema = fetchSchema("target");
 // this interface should eventually be generated
 export interface Graph {
   count: number;
+  fragmentTest: {
+    field: string;
+  };
 }
 
 export const defaults: Graph = {
-  count: 0
+  count: 0,
+  fragmentTest: {
+    field: "Go!"
+  }
 };
 
 export const resolvers = {

@@ -1,7 +1,9 @@
-export interface Query {
-  count: number;
-}
-
-export interface Mutation {
-  increment: () => any;
-}
+export default interface Operations {
+  App: {
+    count: number;
+    fragmentTest: {
+      field: string;
+    };
+  };
+  Increment: () => any;
+};

@@ -1,27 +1,33 @@
 import * as React from "react";
 import gql from "graphql-tag";
 
-import { GraphQLComponent, withGraphQL } from "./withGraphQL";
+import { withGraphQL } from "./withGraphQL";
+import Operations from "../generated/App";
 
 import Schema from "./Schema";
 
-import { Query, Mutation } from "../generated/App";
-
-const App: GraphQLComponent<Query, Mutation> = ({ query, mutation }) => (
-  <div>
-    <Schema />
-    <h1 onClick={mutation.increment}>{query.data && query.data.count}</h1>
-  </div>
-);
-
-export default withGraphQL<Query, Mutation>(App)(
+export default withGraphQL<Operations>(
   gql`
-    query {
+    query App {
       count
+      fragmentTest {
+        ...Field
+      }
     }
 
-    mutation {
+    fragment Field on FragmentTest {
+      field
+    }
+
+    mutation Increment {
       increment
     }
-  `
+  `,
+  ({ App: { data }, Increment }) => (
+    <div>
+      <Schema />
+      <h1 onClick={Increment}>{data && data.count}</h1>
+      <p>{data && data.fragmentTest.field}</p>
+    </div>
+  )
 );
