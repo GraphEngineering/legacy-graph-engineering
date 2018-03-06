@@ -25,7 +25,7 @@ export default withGraphQL<Operations>(
   `,
   ({ App: { data }, Increment }) => (
     <div>
-      <Schema />
+      {/* <Schema /> */}
       <h1 onClick={Increment}>{data && data.count}</h1>
       <p>{data && data.fragmentTest.field}</p>
     </div>
