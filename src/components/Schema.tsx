@@ -1,6 +1,4 @@
 import * as React from "react";
-
-import { introspectionQuery } from "graphql";
 import gql from "graphql-tag";
 
 import { GraphQLComponent, withGraphQL } from "./withGraphQL";
