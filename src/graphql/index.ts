@@ -1,3 +1,4 @@
+import { IntrospectionSchema, graphqlSync, introspectionQuery } from "graphql";
 import { fetchSchema } from "./utils";
 
 const targetSchema = fetchSchema("target");
@@ -8,13 +9,15 @@ export interface Graph {
   fragmentTest: {
     field: string;
   };
+  schema: IntrospectionSchema;
 }
 
 export const defaults: Graph = {
   count: 0,
   fragmentTest: {
     field: "Go!"
-  }
+  },
+  schema: graphqlSync(targetSchema, introspectionQuery).data.__schema
 };
 
 export const resolvers = {
