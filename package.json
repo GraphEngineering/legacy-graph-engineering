@@ -1,16 +1,19 @@
 {
   "name": "graph-engineering",
   "version": "0.0.0",
-  "description": "User interface for creating and interacting with GraphQL schemas.",
+  "description":
+    "User interface for creating and interacting with GraphQL schemas.",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GraphEngineering/graph-engineering.git"
   },
   "scripts": {
-    "clean": "rimraf build tmp",
-    "generate-schema-json": "apollo-codegen introspect-schema src/graphql/schema.graphql --output tmp/schema.json",
-    "generate-code": "npm run generate-schema-json && apollo-codegen generate src/components/**/*.tsx --schema tmp/schema.json --target typescript --output src/types/generated/operations.ts",
+    "clean": "rimraf build tmp .cache",
+    "generate-schema-json":
+      "apollo-codegen introspect-schema src/graphql/schema.graphql --output tmp/schema.json",
+    "generate-code":
+      "npm run generate-schema-json && apollo-codegen generate src/components/**/*.tsx --schema tmp/schema.json --target typescript --output src/types/generated/operations.ts",
     "dev": "parcel src/index.html"
   },
   "author": "CryptoGraph",
@@ -37,6 +40,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "clean": "^4.0.2",
     "node-sass": "^4.7.2",
+    "parcel-bundler": "^1.6.2",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.7.0",
     "typescript": "^2.7.1"

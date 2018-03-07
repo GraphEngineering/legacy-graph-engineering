@@ -2,7 +2,29 @@ $primary: hsl(241, 86%, 61%);
 
 html,
 body {
-  background: desaturate(darken($primary, 40%), 50%);
+  background: desaturate(darken($primary, 50%), 50%);
+  color: white;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: $primary;
+  &:hover {
+    color: lighten($color: $primary, $amount: 5%);
+  }
+  &:active {
+    color: lighten($color: $primary, $amount: 3%);
+  }
 }
 
 #app {
@@ -13,18 +35,55 @@ body {
 }
 
 .schema {
+  $word-spacing: 0.5ch;
+
   padding: 1em;
+
+  .description {
+    opacity: 0.5;
+    font-weight: 300;
+  }
 
   .type {
     margin: 1em;
     padding: 1em;
 
-    background: desaturate(lighten($primary, 30%), 0%);
+    background: desaturate(darken($primary, 45%), 50%);
 
-    h1 {
+    > .definition {
+      color: transparentize(lighten($primary, 30%), 0.5);
+      font-size: 1.3em;
+      font-weight: 300;
+
+      .name {
+        display: inline-block;
+        margin: 0 $word-spacing;
+        font-weight: bold;
+      }
+
+      > .name {
+        color: white;
+      }
+
+      .implements {
+        .name {
+          margin: 0 0 0 $word-spacing;
+        }
+      }
     }
 
-    p {
+    .fields {
+      margin-top: 1em;
+
+      .field {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .definition {
+          font-size: 1.1em;
+        }
+      }
     }
   }
 }

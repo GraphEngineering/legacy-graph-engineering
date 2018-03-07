@@ -12,6 +12,8 @@ export default <Operations>(
 ) => {
   const { queries, mutations } = groupOperationDocuments(documentAST);
 
+  component.displayName = Object.keys({ ...queries, ...mutations }).join(",");
+
   const wrapper = connect(
     mapStateToProps(queries),
     mapDispatchToProps(mutations)
