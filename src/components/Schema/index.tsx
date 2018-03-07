@@ -6,21 +6,20 @@ import gql from "graphql-tag";
 import withGraphQL from "../withGraphQL";
 import Operations from "../../generated/Schema";
 
+import Type from "./Type";
+
 export default withGraphQL<Operations>(
   gql`
     ${introspectionQuery.replace("__schema", "schema")}
   `,
   ({ IntrospectionQuery: { data } }) => (
-    <div className="schema">{data && data.schema.types.map(Type)}</div>
+    <div className="schema">
+      {data && data.schema.types.filter(isUserDefinedType).map(Type)}
+    </div>
   )
 );
 
-const Type: React.StatelessComponent<IntrospectionType> = ({
-  name,
-  description
-}) => (
-  <div className="type" key={name}>
-    <h1>{name}</h1>
-    <p>{description}</p>
-  </div>
-);
+const isUserDefinedType = (type: IntrospectionType) =>
+  !type.name.startsWith("__") && !basicTypes.includes(type.name);
+
+const basicTypes = ["String", "Int", "Float", "Boolean", "ID"];
