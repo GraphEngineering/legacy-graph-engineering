@@ -6,17 +6,11 @@ const targetSchema = fetchSchema("target");
 // this interface should eventually be generated
 export interface Graph {
   count: number;
-  fragmentTest: {
-    field: string;
-  };
   schema: IntrospectionSchema;
 }
 
 export const defaults: Graph = {
   count: 0,
-  fragmentTest: {
-    field: "Go!"
-  },
   schema: graphqlSync(targetSchema, introspectionQuery).data.__schema
 };
 

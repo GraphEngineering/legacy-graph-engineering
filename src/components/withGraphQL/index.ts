@@ -12,9 +12,11 @@ export default <Operations>(
 ) => {
   const { queries, mutations } = groupOperationDocuments(documentAST);
 
-  // `any`s are needed since the document isn't known at build-time
-  return connect(
-    mapStateToProps(queries) as any,
-    mapDispatchToProps(mutations) as any
-  )(component);
+  const wrapper = connect(
+    mapStateToProps(queries),
+    mapDispatchToProps(mutations)
+  );
+
+  // `any` is needed since the document isn't known at build-time
+  return wrapper(component as any);
 };
