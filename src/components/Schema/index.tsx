@@ -1,23 +1,16 @@
 import * as React from "react";
 
-import { IntrospectionType } from "graphql";
+import { IntrospectionType, introspectionQuery } from "graphql";
 import gql from "graphql-tag";
 
-import { withGraphQL } from "../withGraphQL";
-import { Query } from "../../generated/Schema";
+import withGraphQL from "../withGraphQL";
+import Operations from "../../generated/Schema";
 
-export default withGraphQL<Query, {}>(
+export default withGraphQL<Operations>(
   gql`
-    query {
-      schema {
-        types {
-          name
-          description
-        }
-      }
-    }
+    ${introspectionQuery.replace("__schema", "schema")}
   `,
-  ({ query: { data } }) => (
+  ({ IntrospectionQuery: { data } }) => (
     <div className="schema">{data && data.schema.types.map(Type)}</div>
   )
 );
@@ -26,7 +19,7 @@ const Type: React.StatelessComponent<IntrospectionType> = ({
   name,
   description
 }) => (
-  <div className="type">
+  <div className="type" key={name}>
     <h1>{name}</h1>
     <p>{description}</p>
   </div>

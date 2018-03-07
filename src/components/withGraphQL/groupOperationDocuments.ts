@@ -11,25 +11,27 @@ export interface NamedOperationDocuments {
 
 export const groupOperationDocuments = (
   documentAST: DocumentNode
-): GroupedOperationDocuments => {
-  const documents = separateOperations(documentAST);
-  return Object.keys(documents).reduce(
-    (groupedDocuments, operationName) => {
-      const document = documents[operationName];
-      const documentGroup = document.definitions
-        .map(
-          definition =>
-            definition.kind === "OperationDefinition" &&
-            definition.operation === "query"
-        )
-        .includes(true)
+): GroupedOperationDocuments =>
+  Object.entries(separateOperations(documentAST)).reduce(
+    (groupedOperationDocuments, [operationName, document]) => {
+      if (operationName === "") {
+        return groupedOperationDocuments;
+      }
+
+      const operationGroup = isOperationDocumentOfType("query", document)
         ? "queries"
-        : "mutations";
+        : isOperationDocumentOfType("mutation", document)
+          ? "mutations"
+          : undefined;
+
+      if (!operationGroup) {
+        return groupedOperationDocuments;
+      }
 
       return {
-        ...groupedDocuments,
-        [documentGroup]: {
-          ...groupedDocuments[documentGroup],
+        ...groupedOperationDocuments,
+        [operationGroup]: {
+          ...groupedOperationDocuments[operationGroup],
           [operationName]: document
         }
       };
@@ -39,4 +41,15 @@ export const groupOperationDocuments = (
       mutations: {}
     }
   );
-};
+
+const isOperationDocumentOfType = (
+  operationType: "query" | "mutation",
+  document: DocumentNode
+) =>
+  document.definitions
+    .map(
+      definition =>
+        definition.kind === "OperationDefinition" &&
+        definition.operation === operationType
+    )
+    .includes(true);

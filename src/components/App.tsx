@@ -1,7 +1,7 @@
 import * as React from "react";
 import gql from "graphql-tag";
 
-import { withGraphQL } from "./withGraphQL";
+import withGraphQL from "./withGraphQL";
 import Operations from "../generated/App";
 
 import Schema from "./Schema";
@@ -25,7 +25,7 @@ export default withGraphQL<Operations>(
   `,
   ({ App: { data }, Increment }) => (
     <div>
-      {/* <Schema /> */}
+      <Schema />
       <h1 onClick={Increment}>{data && data.count}</h1>
       <p>{data && data.fragmentTest.field}</p>
     </div>
