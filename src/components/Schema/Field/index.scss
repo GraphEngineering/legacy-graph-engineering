@@ -1,19 +1,30 @@
 @import "../common";
 
 .field {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  margin: 1em 0;
+
+  &.deprecated {
+    color: red;
+  }
 
   .definition {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
     font-size: 1.1em;
 
-    .field-name {
+    .name {
       font-weight: bold;
+    }
+
+    .description {
+      @include description;
     }
   }
 
-  .description {
-    @include description;
+  .deprecation-reason {
+    flex: 1;
+    color: red;
   }
 }

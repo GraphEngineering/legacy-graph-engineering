@@ -1,9 +1,22 @@
+@import "../../../common";
 @import "../common";
 
 .type-ref {
   margin: 0 $word-spacing;
 
-  &.non-null {
-    margin-left: 0;
+  font-weight: 300;
+  color: adjust-color($secondary, $hue: 10);
+
+  span {
+    margin: 0 $word-spacing;
+  }
+
+  .name {
+    margin: 0 $word-spacing;
+    font-weight: bold;
+  }
+
+  span.name {
+    color: adjust-color($secondary, $hue: -15);
   }
 }

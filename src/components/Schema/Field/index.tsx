@@ -12,11 +12,19 @@ export default ({
   isDeprecated,
   deprecationReason
 }: IntrospectionField) => (
-  <div className={styles.field} key={name}>
+  <div
+    className={`${styles.field} ${isDeprecated && styles.deprecated}`}
+    key={name}
+  >
     <div className={styles.definition}>
-      <span className={styles["field-name"]}>{name}</span>
+      <div className={styles.name}>
+        {isDeprecated && "❌"} {name}
+      </div>
       <TypeRef type={type} />
+      {description && <div className={styles.description}>{description}</div>}
     </div>
-    {description && <div className={styles.description}>{description}</div>}
+    {deprecationReason && (
+      <div className={styles["deprecation-reason"]}>{deprecationReason}</div>
+    )}
   </div>
 );

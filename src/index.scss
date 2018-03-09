@@ -1,8 +1,15 @@
 @import "common";
 
-html,
-body {
-  background: desaturate(darken($primary, 50%), 50%);
+html {
+  $hue-spread: 20;
+  $base: adjust-color($primary, $lightness: -50%, $saturation: -75%);
+  $from: adjust-color($base, $hue: -$hue-spread);
+  $to: adjust-color($base, $hue: $hue-spread);
+  @include gradient($from, $to);
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 
   font-size: 20px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -13,11 +20,13 @@ body {
 }
 
 a {
-  color: $primary;
+  color: $secondary;
+
   &:hover {
-    color: lighten($primary, 5%);
+    color: lighten($secondary, 5%);
   }
+
   &:active {
-    color: lighten($primary, 3%);
+    color: lighten($secondary, 3%);
   }
 }

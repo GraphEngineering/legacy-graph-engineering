@@ -23,7 +23,7 @@ const ObjectType = ({
           implements
           {interfaces.map(({ name: interfaceName }) => (
             <a
-              className={styles["ref-name"]}
+              className={styles["type-ref"]}
               href={`#${typeId(interfaceName)}`}
               key={interfaceName}
             >

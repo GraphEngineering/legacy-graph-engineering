@@ -1,6 +1,10 @@
+@import "../../common";
+
 $word-spacing: 0.5ch;
 
 @mixin description {
-  opacity: 0.5;
-  font-weight: 100;
+  opacity: 0.4;
+
+  color: lighten($primary, 30%);
+  font-weight: 300;
 }

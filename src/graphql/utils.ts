@@ -1,15 +1,16 @@
-import { GraphQLSchema } from "graphql";
+import { GraphQLSchema, DocumentNode } from "graphql";
 
 import { makeExecutableSchema } from "graphql-tools";
 
-// `*.graphql` is in `index.d.ts`, `require` is declared since parcel uses it
-declare const require: any;
+import * as app from "./app.graphql";
+import * as target from "./schemas/StarWars.graphql";
 
-// tslint:disable-next-line
-const app = require("./app.graphql");
-
-// tslint:disable-next-line
-const target = require("./schemas/StarWars.graphql");
+const schemas: {
+  [schemaName: string]: DocumentNode;
+} = {
+  app,
+  target
+};
 
 interface Resolvers {
   [typeName: string]: {
@@ -22,6 +23,6 @@ export const fetchSchema = (
   resolvers?: Resolvers
 ): GraphQLSchema =>
   makeExecutableSchema({
-    typeDefs: { app, target }[schemaName],
+    typeDefs: schemas[schemaName],
     resolvers
   });

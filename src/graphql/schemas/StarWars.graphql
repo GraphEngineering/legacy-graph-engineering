@@ -5,7 +5,7 @@ schema {
 
 "The query type, represents all of the entry points into our object graph"
 type Query {
-  hero(episode: Episode): Character
+  hero(episode: Episode): Character @deprecated(reason: "This is just a test")
   reviews(episode: Episode!): [Review]
   search(text: String): [SearchResult]
   character(id: ID!): Character
