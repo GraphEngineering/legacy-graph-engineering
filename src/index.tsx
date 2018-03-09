@@ -6,7 +6,9 @@ import { Provider } from "react-redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
 
 import { Graph, defaults, resolvers } from "./graphql";
+
 import App from "./components/App";
+import "./index.scss";
 
 const reducer = (state: Graph = defaults) =>
   resolvers.Mutation.increment(state);

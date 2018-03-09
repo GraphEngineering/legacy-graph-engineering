@@ -1,0 +1,9 @@
+@import "../common";
+
+.type-ref {
+  margin: 0 $word-spacing;
+
+  &.non-null {
+    margin-left: 0;
+  }
+}

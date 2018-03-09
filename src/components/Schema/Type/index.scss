@@ -1,0 +1,41 @@
+@import "../../../common";
+@import "../common";
+
+.type {
+  margin: 1em;
+  padding: 1em;
+
+  background: desaturate(darken($primary, 45%), 50%);
+
+  .definition {
+    color: transparentize(lighten($primary, 30%), 0.5);
+    font-size: 1.3em;
+    font-weight: 300;
+
+    .name {
+      display: inline-block;
+      margin-right: $word-spacing;
+
+      font-size: 1.4em;
+      font-weight: bold;
+      color: white;
+    }
+
+    .implements {
+      .ref-name {
+        margin: 0 0 0 $word-spacing;
+      }
+    }
+  }
+
+  .description {
+    @include description;
+
+    margin-top: 0.1em;
+    font-size: 1.3em;
+  }
+
+  .fields {
+    margin-top: 0.8em;
+  }
+}

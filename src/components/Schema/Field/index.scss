@@ -1,0 +1,19 @@
+@import "../common";
+
+.field {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .definition {
+    font-size: 1.1em;
+
+    .field-name {
+      font-weight: bold;
+    }
+  }
+
+  .description {
+    @include description;
+  }
+}

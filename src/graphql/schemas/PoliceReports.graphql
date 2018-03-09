@@ -1,0 +1,140 @@
+# The kinds of queries you can make to this endpoint
+type Query {
+  policeReportSearch(
+    searchCriteria: PoliceReportSearchInput!
+  ): [PoliceReportMetaInfo!]!
+  policeAgencies: [PoliceAgency!]!
+  policeAgenciesByState(state: String!): [PoliceAgency!]!
+}
+
+# java.util.Date implementation, represented in ISO-8601 format
+scalar Date
+
+# Information that constitutes a search for police reports
+input PoliceReportSearchInput {
+  # Information about the person requesting the report
+  requester: RequesterInput
+  # Last name of one of the drivers involved
+  driverLastName: String
+  # The state the accident occurred in
+  state: String!
+  # Police agencies to look through for reports
+  policeAgencies: PoliceAgenciesInput!
+  # The date the accident occurred
+  dateOfLoss: Date!
+  # A unique identifier for this request
+  referenceNumber: String!
+  # One of the drivers involved in the accident
+  driverOne: DriverInput
+  # Another of the drivers involved in the accident
+  driverTwo: DriverInput
+  # Information about when/where the accident occurred
+  accident: AccidentInput
+  # One of the vehicles involved in the accident
+  vehicleOne: VehicleInput
+  # Another of the vehicles involved in the accident
+  vehicleTwo: VehicleInput
+}
+
+# Information about the user making the request
+input RequesterInput {
+  email: String!
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
+}
+
+# Information about a driver
+input DriverInput {
+  firstName: String
+  lastName: String!
+  driversLicenseNumber: String
+  dateOfBirth: Date
+  address: DriverAddressInput
+}
+
+# Address of a driver
+input DriverAddressInput {
+  street: String
+  city: String
+  state: String
+  zip: String
+}
+
+# Information about the accident
+input AccidentInput {
+  location: String!
+  dateOfLoss: Date!
+  city: String!
+  state: String
+  zip: String
+  reportIssuingAgency: String
+  additionalInformation: String
+}
+
+# Information about a vehicle involved in the accident
+input VehicleInput {
+  vin: String
+  licensePlate: String
+  year: String
+  make: String
+  model: String
+  state: String
+}
+
+# The police agencies to search for reports in
+input PoliceAgenciesInput {
+  oris: [String!]
+}
+
+# MetaData about the a police crash report
+type PoliceReportMetaInfo {
+  # Unique identifier for this report
+  reportNumber: String!
+  # State the accident occurred in
+  state: String!
+  # The city & state of where the accident occurred
+  location: String!
+  # Date of the accident
+  dateOfLoss: Date!
+  # Names of the parties involved
+  names: [String!]!
+  # Vehicles of the parties involved
+  vehicles: [Vehicle!]
+  # VINs of the parties involved
+  vins: [String!]!
+  # The police agency the report came from
+  agency: PoliceAgency!
+}
+
+# TODO: Nullability?
+type Vehicle {
+  vin: String!
+  description: VehicleDescription
+  details: DamageDetails
+}
+
+# TODO: Nullability?
+type VehicleDescription {
+  year: String
+  make: String
+  model: String
+  plate: String
+  plateState: String
+}
+
+# TODO: Nullability?
+type DamageDetails {
+  towing: String!
+  damage: String
+  fire: String!
+  pointOfImpact: String
+  extraction: String
+  airbag: String
+}
+
+type PoliceAgency {
+  name: String!
+  ori: String!
+  state: String!
+}
