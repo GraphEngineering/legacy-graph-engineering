@@ -24,21 +24,17 @@ const TypeRef: React.StatelessComponent<{
     <strong>optional </strong>
   );
 
-  if (isTypeRefList(type) && type.ofType) {
-    return (
-      type.ofType && (
-        <span>
-          {optionalMarker}
-          <strong>list</strong> of [
-          <TypeRef type={type.ofType} parent={type} />
-          ]
-        </span>
-      )
+  if (isTypeRefList(type)) {
+    return type.ofType === undefined ? null : (
+      <span>
+        {optionalMarker}
+        <strong>list</strong> of [<TypeRef type={type.ofType} parent={type} />]
+      </span>
     );
   }
 
-  if (isTypeRefNonNullable(type) && type.ofType) {
-    return (
+  if (isTypeRefNonNullable(type)) {
+    return type.ofType === undefined ? null : (
       <span>
         <strong>required</strong>
         <TypeRef type={type.ofType} parent={type} />
