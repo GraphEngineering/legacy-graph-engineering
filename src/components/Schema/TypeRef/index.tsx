@@ -18,39 +18,42 @@ export default ({ type }: { type: IntrospectionTypeRef }) => (
 const TypeRef: React.StatelessComponent<{
   type: IntrospectionTypeRef;
   parent?: IntrospectionTypeRef;
-}> = ({ type, parent }) =>
-  isTypeRefList(type) ? (
-    type.ofType && (
-      <span>
-        <strong>list</strong> of [
-        <TypeRef type={type.ofType} parent={type} />
-        ]
-      </span>
-    )
-  ) : isTypeRefNonNullable(type) ? (
-    type.ofType && (
+}> = ({ type, parent }) => {
+  const isParentNonNullable = parent && isTypeRefNonNullable(parent);
+  const optionalMarker = (!isParentNonNullable || !parent) && (
+    <strong>optional </strong>
+  );
+
+  if (isTypeRefList(type) && type.ofType) {
+    return (
+      type.ofType && (
+        <span>
+          {optionalMarker}
+          <strong>list</strong> of [
+          <TypeRef type={type.ofType} parent={type} />
+          ]
+        </span>
+      )
+    );
+  }
+
+  if (isTypeRefNonNullable(type) && type.ofType) {
+    return (
       <span>
         <strong>required</strong>
         <TypeRef type={type.ofType} parent={type} />
       </span>
-    )
-  ) : (
+    );
+  }
+
+  return (
     <span>
-      {isTypeRefNullable(type, parent) && <strong>optional </strong>}
+      {optionalMarker}
       <a className={styles.name} href={`#${typeId(type.name)}`}>
         {type.name}
       </a>
     </span>
   );
-
-const isTypeRefNullable = (
-  type: IntrospectionTypeRef,
-  parent?: IntrospectionTypeRef
-) => {
-  const isParentNonNullable = parent && isTypeRefNonNullable(parent);
-  const isWrapperType = isTypeRefList(type) || isTypeRefNonNullable(type);
-
-  return !isParentNonNullable && !isWrapperType;
 };
 
 const isTypeRefList = (
