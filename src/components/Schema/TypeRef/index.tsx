@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  IntrospectionField,
   IntrospectionTypeRef,
   IntrospectionListTypeRef,
   IntrospectionNonNullTypeRef
@@ -12,7 +11,7 @@ import * as styles from "./index.scss";
 
 export default ({ type }: { type: IntrospectionTypeRef }) => (
   <div className={styles["type-ref"]}>
-    <TypeRef type={type} />
+    is<TypeRef type={type} />
   </div>
 );
 
@@ -23,37 +22,41 @@ const TypeRef: React.StatelessComponent<{
   isTypeRefList(type) ? (
     type.ofType && (
       <span>
-        list of {!parent && "("}
+        <strong>list</strong> of [
         <TypeRef type={type.ofType} parent={type} />
-        {!parent && ")"}
+        ]
       </span>
     )
-  ) : isTypeRefNonNull(type) ? (
+  ) : isTypeRefNonNullable(type) ? (
     type.ofType && (
       <span>
-        required<TypeRef type={type.ofType} parent={type} />
+        <strong>required</strong>
+        <TypeRef type={type.ofType} parent={type} />
       </span>
     )
-  ) : type.kind !== "SCALAR" ? (
-    <a className={styles.name} href={`#${typeId(type.name)}`}>
-      {type.name}
-    </a>
   ) : (
     <span>
-      {isNullable(type, parent) && "optional"}
-      <span className={styles.name}>{type.name}</span>
+      {isTypeRefNullable(type, parent) && <strong>optional </strong>}
+      <a className={styles.name} href={`#${typeId(type.name)}`}>
+        {type.name}
+      </a>
     </span>
   );
+
+const isTypeRefNullable = (
+  type: IntrospectionTypeRef,
+  parent?: IntrospectionTypeRef
+) => {
+  const isParentNonNullable = parent && isTypeRefNonNullable(parent);
+  const isWrapperType = isTypeRefList(type) || isTypeRefNonNullable(type);
+
+  return !isParentNonNullable && !isWrapperType;
+};
 
 const isTypeRefList = (
   type: IntrospectionTypeRef
 ): type is IntrospectionListTypeRef => type.kind === "LIST";
 
-const isTypeRefNonNull = (
+const isTypeRefNonNullable = (
   type: IntrospectionTypeRef
 ): type is IntrospectionNonNullTypeRef => type.kind === "NON_NULL";
-
-const isNullable = (
-  type: IntrospectionTypeRef,
-  parent?: IntrospectionTypeRef
-) => !parent;

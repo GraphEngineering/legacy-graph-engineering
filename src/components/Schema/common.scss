@@ -1,6 +1,6 @@
 @import "../../common";
 
-$word-spacing: 0.5ch;
+$syntax-color: adjust-color($secondary, $hue: 15);
 
 @mixin description {
   opacity: 0.4;

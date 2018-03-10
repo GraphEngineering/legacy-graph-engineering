@@ -11,17 +11,20 @@
   $to: adjust-color($base, $hue: -$hue-spread);
   @include gradient($from, $to);
 
-  box-shadow: 0 0.15em 0.1em transparentize(black, 0.87);
-  border-radius: 0.3em;
+  @include panel;
 
   .definition {
-    color: transparentize(lighten($primary, 30%), 0.5);
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+
+    color: $syntax-color;
     font-size: 1.3em;
     font-weight: 300;
 
     .name {
       display: inline-block;
-      margin-right: $word-spacing;
+      margin-right: 0.4em;
 
       font-size: 1.3em;
       font-weight: bold;
@@ -29,8 +32,8 @@
     }
 
     .implements {
-      .type-ref {
-        margin: 0 0 0 $word-spacing;
+      a {
+        margin-left: 0.5ch;
       }
     }
   }
@@ -39,10 +42,32 @@
     @include description;
 
     margin-top: 0.1em;
+    margin-bottom: 1em;
+
     font-size: 1.2em;
   }
 
   .fields {
-    margin-top: 0.8em;
+    margin-top: 0.7em;
+
+    &.deprecations {
+      @include panel;
+
+      margin-top: 0.8em;
+      padding: 1em 1.3em;
+
+      $gradient-hue-spread: 15;
+      $gradient-alpha-adjust: -0.73;
+
+      @include gradient(
+        adjust-color($red, $hue: $hue-spread, $alpha: $gradient-alpha-adjust),
+        adjust-color($red, $hue: -$hue-spread, $alpha: $gradient-alpha-adjust)
+      );
+
+      > h1 {
+        font-size: 1.2em;
+        color: $red;
+      }
+    }
   }
 }

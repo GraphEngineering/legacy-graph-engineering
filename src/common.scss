@@ -1,6 +1,12 @@
 $primary: hsl(241, 86%, 61%);
-$secondary: hsl(202, 88%, 64%);
+$secondary: hsl(207, 87%, 64%);
+$red: rgb(233, 57, 44);
 
 @mixin gradient($from, $to) {
   background-image: linear-gradient(to bottom right, $from, $to);
+}
+
+@mixin panel {
+  box-shadow: 0 0.15em 0.1em transparentize(black, 0.87);
+  border-radius: 0.3em;
 }
