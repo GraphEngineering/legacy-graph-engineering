@@ -14,7 +14,19 @@ export default withGraphQL<Operations>(
   `,
   ({ IntrospectionQuery: { data } }) => (
     <div className="schema">
-      {data && data.schema.types.filter(isUserDefinedType).map(Type)}
+      {data &&
+        data.schema.types
+          .filter(isUserDefinedType)
+          .map(type => {
+            switch (type.kind) {
+              case "OBJECT":
+                return <ObjectType type={type} />;
+              case "ENUM":
+                return <Enum type={type} />;
+              default:
+                return null;
+            }
+          };}
     </div>
   )
 );
