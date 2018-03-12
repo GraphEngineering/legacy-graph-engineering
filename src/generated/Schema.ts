@@ -1,9 +1,9 @@
 import { IntrospectionSchema } from "graphql";
 
-export default interface Operations {
+export interface Operations {
   IntrospectionQuery: {
     data: {
       schema: IntrospectionSchema;
     };
   };
-};
+}

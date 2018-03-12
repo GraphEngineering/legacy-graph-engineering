@@ -5,8 +5,7 @@ schema {
 
 "The query type, represents all of the entry points into our object graph"
 type Query {
-  hero(episode: Episode): Character
-    @deprecated(reason: "Deprecated for testing")
+  hero(episode: Episode): Character @deprecated
 
   "What does this look like with a description?"
   hero2(episode: Episode): Character
@@ -54,7 +53,7 @@ enum LengthUnit {
   "The standard unit around the world"
   METER
   "Primarily used in the United States"
-  FOOT
+  FOOT @deprecated(reason: "Metric is better lul.")
 }
 
 "A humanoid creature from the Star Wars universe"

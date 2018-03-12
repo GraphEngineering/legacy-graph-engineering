@@ -9,13 +9,16 @@ import { typeId } from "../utils";
 
 import * as styles from "./index.scss";
 
-export default ({ type }: { type: IntrospectionTypeRef }) => (
+export const TypeRef: React.StatelessComponent<{
+  type: IntrospectionTypeRef;
+  parent?: IntrospectionTypeRef;
+}> = ({ type }) => (
   <div className={styles["type-ref"]}>
-    is<TypeRef type={type} />
+    is<TypeRefChild type={type} />
   </div>
 );
 
-const TypeRef: React.StatelessComponent<{
+const TypeRefChild: React.StatelessComponent<{
   type: IntrospectionTypeRef;
   parent?: IntrospectionTypeRef;
 }> = ({ type, parent }) => {
@@ -28,7 +31,9 @@ const TypeRef: React.StatelessComponent<{
     return type.ofType === undefined ? null : (
       <span>
         {optionalMarker}
-        <strong>list</strong> of [<TypeRef type={type.ofType} parent={type} />]
+        <strong>list</strong> of [
+        <TypeRefChild type={type.ofType} parent={type} />
+        ]
       </span>
     );
   }
@@ -37,7 +42,7 @@ const TypeRef: React.StatelessComponent<{
     return type.ofType === undefined ? null : (
       <span>
         <strong>required</strong>
-        <TypeRef type={type.ofType} parent={type} />
+        <TypeRefChild type={type.ofType} parent={type} />
       </span>
     );
   }

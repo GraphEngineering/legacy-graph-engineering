@@ -1,8 +1,8 @@
-export default interface Operations {
+export interface Operations {
   App: {
     data: {
       count: number;
     };
   };
   Increment: () => any;
-};
+}

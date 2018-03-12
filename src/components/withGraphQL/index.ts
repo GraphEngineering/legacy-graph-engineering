@@ -6,7 +6,7 @@ import { groupOperationDocuments } from "./groupOperationDocuments";
 import mapStateToProps from "./mapStateToProps";
 import mapDispatchToProps from "./mapDispatchToProps";
 
-export default <Operations>(
+export const withGraphQL = <Operations>(
   documentAST: DocumentNode,
   component: React.StatelessComponent<Operations>
 ) => {

@@ -1,10 +1,9 @@
 @import "../../../common";
 @import "../common";
 
-.field {
-  @include vertically-spaced;
-
-  .definition {
+.enum {
+  .value {
+    @include vertically-spaced;
     @include center-and-wrap-children;
 
     .name {

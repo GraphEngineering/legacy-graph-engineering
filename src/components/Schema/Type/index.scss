@@ -13,42 +13,19 @@
 
   @include panel;
 
-  .name {
-    color: $secondary;
-    font-size: 2em;
-    font-weight: bold;
-  }
+  .name-and-description {
+    @include center-and-wrap-children;
 
-  .description {
-    @include description;
-
-    margin-top: 0.1em;
     margin-bottom: 1em;
 
-    font-size: 1.2em;
-  }
+    color: $secondary;
+    font-size: 1.3em;
+    font-weight: bold;
 
-  .fields {
-    margin-top: 0.7em;
-
-    &.deprecations {
-      @include panel;
-
-      margin-top: 0.8em;
-      padding: 1em 1.3em;
-
-      $gradient-hue-spread: 15;
-      $gradient-alpha-adjust: -0.73;
-
-      @include gradient(
-        adjust-color($red, $hue: $hue-spread, $alpha: $gradient-alpha-adjust),
-        adjust-color($red, $hue: -$hue-spread, $alpha: $gradient-alpha-adjust)
-      );
-
-      > h1 {
-        font-size: 1.2em;
-        color: $red;
-      }
+    .name {
+      color: $secondary;
+      font-size: 1.4em;
+      font-weight: bold;
     }
   }
 }
