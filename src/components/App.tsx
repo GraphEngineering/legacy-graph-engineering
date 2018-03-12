@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { withGraphQL } from "./withGraphQL";
 import { Operations } from "../generated/App";
 
-import { Schema } from "./Schema";
+import { Schema } from "./BetterSchema";
 
 export default withGraphQL<Operations>(
   gql`

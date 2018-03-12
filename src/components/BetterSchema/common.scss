@@ -1,0 +1,31 @@
+@import "../../common";
+
+$syntax-color: adjust-color($secondary, $hue: 15);
+$name-size: 1.4em;
+
+@mixin center-and-wrap-children {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  > * {
+    margin-right: 0.5em;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+@mixin vertically-spaced {
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}

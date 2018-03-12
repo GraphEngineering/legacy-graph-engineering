@@ -1,5 +1,5 @@
 {
-  "watch": ["test"],
+  "watch": ["spike"],
   "ext": "ts",
-  "exec": "ts-node test/test.ts"
+  "exec": "ts-node spike/index.ts"
 }
