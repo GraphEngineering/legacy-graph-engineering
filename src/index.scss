@@ -24,15 +24,3 @@ h1 {
     margin-top: 0;
   }
 }
-
-a {
-  color: $secondary;
-
-  &:hover {
-    color: lighten($secondary, 5%);
-  }
-
-  &:active {
-    color: lighten($secondary, 3%);
-  }
-}

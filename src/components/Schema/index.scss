@@ -1,5 +1,4 @@
 @import "../../common";
-@import "common";
 
 @mixin align-and-wrap-children {
   display: flex;
@@ -7,7 +6,7 @@
   align-items: center;
 
   > * {
-    margin-right: 0.4em;
+    margin-right: 0.5em;
 
     &:last-of-type {
       margin-right: 0;
@@ -47,7 +46,16 @@
       font-size: 1.6em;
       font-weight: bold;
       color: $secondary;
+
+      * {
+        display: inline-block;
+      }
+
+      .type-definition-keyword {
+        margin-right: 0.3em;
+      }
     }
+
     .type-definition-description {
       font-size: 1.3em;
     }
@@ -104,6 +112,35 @@
   }
 }
 
+.field-definition-type-ref,
+.input-value-definition-type-ref {
+  > .named-type-ref {
+    background: transparentize($secondary, 0.9);
+
+    .name {
+      color: darken($secondary, 50%);
+    }
+  }
+}
+
+.named-type-ref {
+  @include panel;
+  padding: 0.2em 0.5em;
+  background: $secondary;
+
+  .name {
+    color: darken($secondary, 30%);
+  }
+}
+
+.syntax {
+  color: adjust-color(
+    $secondary,
+    $lightness: -5%,
+    $saturation: -10%,
+    $alpha: -0.1
+  );
+}
 .description {
   font-weight: 200;
   opacity: 0.4;

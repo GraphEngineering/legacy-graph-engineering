@@ -2,6 +2,7 @@ import * as React from "react";
 import { visit } from "graphql";
 
 import * as schemaAST from "../../graphql/schemas/StarWars.graphql";
+import { intersperse } from "../utils";
 
 import * as styles from "./index.scss";
 
@@ -14,15 +15,21 @@ const Node: React.StatelessComponent<{
 
 const TypeDefinition: React.StatelessComponent<{
   kind: string;
-  name: any;
+  keyword: string;
+  name: { value: string; element: any };
   description: any;
-}> = ({ kind, name, description, children }) => (
+}> = ({ kind, keyword, name, description, children }) => (
   <Node kind={kind}>
-    <div className={styles["type-definition"]}>
+    <div id={name.value} className={styles["type-definition"]}>
       <div className={styles["type-definition-header"]}>
-        <div className={styles["type-definition-name"]}>{name}</div>
+        <div className={styles["type-definition-name"]}>
+          <div className={styles["type-definition-keyword"]}>
+            <Syntax>{keyword}</Syntax>
+          </div>
+          {name.element}
+        </div>
         <div className={styles["type-definition-description"]}>
-          <Description text={description} />
+          <Description>{description}</Description>
         </div>
       </div>
       <div className={styles["type-definition-body"]}>{children}</div>
@@ -30,18 +37,26 @@ const TypeDefinition: React.StatelessComponent<{
   </Node>
 );
 
-const Description: React.StatelessComponent<{ text: string }> = ({ text }) => (
-  <div className={styles.description}>{text}</div>
+const Description: React.StatelessComponent = ({ children }) => (
+  <div className={styles.description}>{children}</div>
 );
 
-const objectLikeDefinitionTransformer = (
-  kind: string
-): React.StatelessComponent<{
+const Syntax: React.StatelessComponent = ({ children }) => (
+  <div className={styles.syntax}>{children}</div>
+);
+
+const objectLikeDefinitionTransformer = ({
+  kind,
+  keyword
+}: {
+  kind: string;
+  keyword: string;
+}): React.StatelessComponent<{
   name: any;
   description: any;
   fields: any[];
 }> => ({ name, description, fields }) => (
-  <TypeDefinition kind={kind} {...{ name, description }}>
+  <TypeDefinition kind={kind} keyword={keyword} {...{ name, description }}>
     {fields}
   </TypeDefinition>
 );
@@ -63,66 +78,90 @@ const transformers: {
   StringValue: ({ value }) => value,
 
   ScalarTypeDefinition: ({ name, description }) => (
-    <TypeDefinition kind="scalar-type-definition" {...{ name, description }} />
+    <TypeDefinition
+      kind="scalar-type-definition"
+      keyword="scalar"
+      {...{ name, description }}
+    />
   ),
 
-  ObjectTypeDefinition: objectLikeDefinitionTransformer(
-    "object-type-definition"
-  ),
-  InterfaceTypeDefinition: objectLikeDefinitionTransformer(
-    "interface-type-definition"
-  ),
+  ObjectTypeDefinition: objectLikeDefinitionTransformer({
+    kind: "object-type-definition",
+    keyword: "type"
+  }),
+  InterfaceTypeDefinition: objectLikeDefinitionTransformer({
+    kind: "interface-type-definition",
+    keyword: "interface"
+  }),
   FieldDefinition: ({ name, description, type }) => (
     <Node kind="field-definition">
-      <div className={styles["field-definition-name"]}>{name}</div>
+      <div className={styles["field-definition-name"]}>{name.element}</div>
       <div className={styles["field-definition-type-ref"]}>{type}</div>
       <div className={styles["field-definition-description"]}>
-        <Description text={description} />
+        <Description>{description}</Description>
       </div>
     </Node>
   ),
 
   UnionTypeDefinition: ({ name, description, types }) => (
-    <TypeDefinition kind="union-type-definition" {...{ name, description }}>
-      {types}
+    <TypeDefinition
+      kind="union-type-definition"
+      keyword="union"
+      {...{ name, description }}
+    >
+      {intersperse(
+        types,
+        <div className={styles["union-type-definition-separator"]}> or </div>
+      )}
     </TypeDefinition>
   ),
 
   EnumTypeDefinition: ({ name, description, values }) => (
-    <TypeDefinition kind="enum-type-definition" {...{ name, description }}>
+    <TypeDefinition
+      kind="enum-type-definition"
+      keyword="enum"
+      {...{ name, description }}
+    >
       {values}
     </TypeDefinition>
   ),
   EnumValueDefinition: ({ name, description }) => (
     <Node kind="enum-value-definition">
-      <div className={styles["enum-value-definition-name"]}>{name}</div>
+      <div className={styles["enum-value-definition-name"]}>{name.element}</div>
       <div className={styles["enum-value-definition-description"]}>
-        <Description text={description} />
+        <Description>{description}</Description>
       </div>
     </Node>
   ),
 
-  InputObjectTypeDefinition: objectLikeDefinitionTransformer(
-    "input-object-type-definition"
-  ),
+  InputObjectTypeDefinition: objectLikeDefinitionTransformer({
+    kind: "input-object-type-definition",
+    keyword: "input"
+  }),
   InputValueDefinition: ({ name, type, description, defaultValue }) => (
     <Node kind="input-value-definition">
-      <div className={styles["input-value-definition-name"]}>{name}</div>
+      <div className={styles["input-value-definition-name"]}>
+        {name.element}
+      </div>
       <div className={styles["input-value-definition-type-ref"]}>{type}</div>
       <div className={styles["input-value-definition-default-value"]}>
         {defaultValue}
       </div>
       <div className={styles["input-value-definition-description"]}>
-        <Description text={description} />
+        <Description>{description}</Description>
       </div>
     </Node>
   ),
 
-  NamedType: ({ name }) => <Node kind="named-type">{name}</Node>,
-  ListType: ({ type }) => <Node kind="list-type">[{type}]</Node>,
-  NonNullType: ({ type }) => <Node kind="non-null-type">{type}!</Node>,
+  NamedType: ({ name }) => (
+    <Node kind="named-type-ref">
+      <a href={`#${name.value}`}>{name.element}</a>
+    </Node>
+  ),
+  ListType: ({ type }) => <Node kind="list-type-ref">[{type}]</Node>,
+  NonNullType: ({ type }) => <Node kind="non-null-type-ref">{type}!</Node>,
 
-  Name: ({ value }) => <Node kind="name">{value}</Node>
+  Name: ({ value }) => ({ value, element: <Node kind="name">{value}</Node> })
 };
 
 const transformersOnLeave = Object.entries(transformers).reduce(

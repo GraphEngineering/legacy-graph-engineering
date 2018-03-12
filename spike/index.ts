@@ -1,1 +1,1 @@
-console.log("This is for quick and dirty tests...");
+console.log("This is for quick and dirty testing...");

@@ -1,8 +1,7 @@
 {
   "name": "graph-engineering",
   "version": "0.0.0",
-  "description":
-    "User interface for creating and interacting with GraphQL schemas.",
+  "description": "User interface for creating and interacting with GraphQL schemas.",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
@@ -10,10 +9,8 @@
   },
   "scripts": {
     "clean": "rimraf build tmp .cache",
-    "generate-schema-json":
-      "apollo-codegen introspect-schema src/graphql/schema.graphql --output tmp/schema.json",
-    "generate-code":
-      "npm run generate-schema-json && apollo-codegen generate src/components/**/*.tsx --schema tmp/schema.json --target typescript --output src/types/generated/operations.ts",
+    "generate-schema-json": "apollo-codegen introspect-schema src/graphql/schema.graphql --output tmp/schema.json",
+    "generate-code": "npm run generate-schema-json && apollo-codegen generate src/components/**/*.tsx --schema tmp/schema.json --target typescript --output src/types/generated/operations.ts",
     "dev": "parcel src/index.html",
     "start": "nodemon"
   },
