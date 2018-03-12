@@ -3,7 +3,20 @@
 $syntax-color: adjust-color($secondary, $hue: 15);
 $name-size: 1.4em;
 
-@mixin center-and-wrap-children {
+@mixin type {
+  @include panel;
+
+  margin: 2em 1.5em;
+  padding: 1.2em 1.4em;
+
+  $hue-spread: 5;
+  $base: adjust-color($primary, $lightness: -45%, $saturation: -75%);
+  $from: adjust-color($base, $hue: $hue-spread);
+  $to: adjust-color($base, $hue: -$hue-spread);
+  @include gradient($from, $to);
+}
+
+@mixin align-and-wrap-children {
   display: flex;
   flex-flow: row wrap;
   align-items: center;

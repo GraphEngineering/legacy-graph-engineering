@@ -1,3 +1,110 @@
-.schema {
-  padding: 1em;
+@import "../../common";
+@import "common";
+
+@mixin align-and-wrap-children {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  > * {
+    margin-right: 0.4em;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+@mixin vertically-spaced($spacing) {
+  margin-top: $spacing;
+  margin-bottom: $spacing;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.type-definition {
+  @include panel;
+
+  margin: 2em 1.5em;
+  padding: 1.2em 1.4em;
+
+  $hue-spread: 5;
+  $base: adjust-color($primary, $lightness: -45%, $saturation: -75%);
+  $from: adjust-color($base, $hue: $hue-spread);
+  $to: adjust-color($base, $hue: -$hue-spread);
+  @include gradient($from, $to);
+
+  .type-definition-header {
+    @include align-and-wrap-children;
+
+    .type-definition-name {
+      font-size: 1.6em;
+      font-weight: bold;
+      color: $secondary;
+    }
+    .type-definition-description {
+      font-size: 1.3em;
+    }
+  }
+}
+
+.object-type-definition,
+.interface-type-definition,
+.enum-type-definition,
+.input-object-type-definition {
+  .type-definition-body {
+    margin-top: 1em;
+
+    > * {
+      @include vertically-spaced(0.6em);
+    }
+  }
+}
+
+.field-definition,
+.input-value-definition,
+.enum-value-definition {
+  @include align-and-wrap-children;
+  * {
+    display: inline-block;
+  }
+
+  .field-definition-name,
+  .input-value-definition-name,
+  .enum-value-definition-name {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .field-definition-type-ref,
+  .input-value-definition-type-ref {
+    color: $secondary;
+  }
+}
+
+.union-type-definition {
+  .type-definition {
+    @include align-and-wrap-children;
+
+    .type-definition-body {
+      @include align-and-wrap-children;
+
+      > * {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: $secondary;
+      }
+    }
+  }
+}
+
+.description {
+  font-weight: 200;
+  opacity: 0.4;
 }
