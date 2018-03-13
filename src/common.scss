@@ -1,12 +1,33 @@
 $primary: hsl(241, 86%, 61%);
-$secondary: hsl(10, 87%, 64%);
+$secondary: hsl(222, 85%, 69%);
 $red: rgb(233, 57, 44);
 
 @mixin gradient($from, $to) {
   background-image: linear-gradient(to bottom right, $from, $to);
 }
 
+@mixin gradient-from-hue-spread($color, $hue-spread) {
+  $hue-spread: $hue-spread;
+  $from: adjust-color($color, $hue: -$hue-spread);
+  $to: adjust-color($color, $hue: $hue-spread);
+  @include gradient($from, $to);
+}
+
+$gradient-default-hue-spread: 10;
+
+@mixin gradient-default($color) {
+  @include gradient-from-hue-spread($color, $gradient-default-hue-spread);
+}
+
+@mixin gradient-default-inverted($color) {
+  @include gradient-from-hue-spread($color, -$gradient-default-hue-spread);
+}
+
+@mixin inner-highlight($color) {
+  box-shadow: 0 0 0 0.1em $color inset;
+}
+
 @mixin panel {
   box-shadow: 0 0.15em 0.1em transparentize(black, 0.87);
-  border-radius: 0.3em;
+  border-radius: 0.5em;
 }

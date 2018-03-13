@@ -6,7 +6,7 @@
   align-items: center;
 
   > * {
-    margin-right: 0.5em;
+    margin-right: 0.4em;
 
     &:last-of-type {
       margin-right: 0;
@@ -14,17 +14,13 @@
   }
 }
 
-@mixin vertically-spaced($spacing) {
-  margin-top: $spacing;
-  margin-bottom: $spacing;
+.document {
+  display: flex;
+  flex-flow: row wrap;
+}
 
-  &:first-of-type {
-    margin-top: 0;
-  }
-
-  &:last-of-type {
-    margin-bottom: 0;
-  }
+.schema-definition {
+  width: 100%;
 }
 
 .type-definition {
@@ -40,10 +36,10 @@
   @include gradient($from, $to);
 
   .type-definition-header {
-    @include align-and-wrap-children;
+    width: 100%;
 
     .type-definition-name {
-      font-size: 1.6em;
+      font-size: 1.5em;
       font-weight: bold;
       color: $secondary;
 
@@ -51,13 +47,14 @@
         display: inline-block;
       }
 
-      .type-definition-keyword {
+      .syntax {
         margin-right: 0.3em;
+        font-weight: 300;
       }
     }
 
     .type-definition-description {
-      font-size: 1.3em;
+      font-size: 1.2em;
     }
   }
 }
@@ -67,11 +64,7 @@
 .enum-type-definition,
 .input-object-type-definition {
   .type-definition-body {
-    margin-top: 1em;
-
-    > * {
-      @include vertically-spaced(0.6em);
-    }
+    margin: 0.5em 0 0.2em 0;
   }
 }
 
@@ -79,20 +72,40 @@
 .input-value-definition,
 .enum-value-definition {
   @include align-and-wrap-children;
+
   * {
     display: inline-block;
+  }
+
+  &:before {
+    content: "";
+
+    margin: 0.5em 0;
+    height: 0.14em;
+    width: 100%;
+
+    opacity: 0.1;
+    background: black;
   }
 
   .field-definition-name,
   .input-value-definition-name,
   .enum-value-definition-name {
-    font-size: 1.2em;
+    font-size: 1.4em;
+  }
+
+  .enum-value-definition-name {
     font-weight: bold;
   }
 
   .field-definition-type-ref,
   .input-value-definition-type-ref {
     color: $secondary;
+  }
+
+  .description {
+    display: block;
+    width: 100%;
   }
 }
 
@@ -104,7 +117,7 @@
       @include align-and-wrap-children;
 
       > * {
-        font-size: 1.3em;
+        margin: 0.1em;
         font-weight: bold;
         color: $secondary;
       }
@@ -112,35 +125,65 @@
   }
 }
 
-.field-definition-type-ref,
-.input-value-definition-type-ref {
-  > .named-type-ref {
-    background: transparentize($secondary, 0.9);
+.named-type-ref {
+  * {
+    text-decoration: none;
+    color: $secondary;
+  }
+  .name {
+    margin-top: -0.1em;
+    font-weight: bold;
+  }
+}
 
-    .name {
-      color: darken($secondary, 50%);
+$type-ref-padding: 0.3em;
+
+$secondary-dark: adjust-color($secondary, $lightness: -55%, $saturation: -55%);
+
+.named-type-ref,
+.list-type-ref {
+  @include panel;
+  @include gradient-default($secondary-dark);
+  @include inner-highlight(transparentize($secondary, 0.6));
+
+  padding: $type-ref-padding 0.6em;
+
+  .name {
+    color: adjust-hue($secondary, -10);
+  }
+}
+
+.list-type-ref {
+  padding-right: $type-ref-padding;
+
+  & > .syntax {
+    margin-right: 0.5em;
+    font-weight: 400;
+    font-style: italic;
+  }
+}
+
+.type-definition-body,
+.non-null-type-ref {
+  > .named-type-ref,
+  > .list-type-ref {
+    @include gradient-default($secondary);
+    @include inner-highlight(transparentize(lighten($secondary, 30%), 0.8));
+
+    .syntax {
+      color: darken($secondary, 40%);
     }
   }
 }
 
-.named-type-ref {
-  @include panel;
-  padding: 0.2em 0.5em;
-  background: $secondary;
-
-  .name {
-    color: darken($secondary, 30%);
+.type-definition-body,
+.non-null-type-ref {
+  padding: 0;
+  > .named-type-ref * {
+    color: darken($secondary, 40%);
   }
 }
 
-.syntax {
-  color: adjust-color(
-    $secondary,
-    $lightness: -5%,
-    $saturation: -10%,
-    $alpha: -0.1
-  );
-}
 .description {
   font-weight: 200;
   opacity: 0.4;

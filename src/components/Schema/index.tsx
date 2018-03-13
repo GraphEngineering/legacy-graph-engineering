@@ -2,7 +2,6 @@ import * as React from "react";
 import { visit } from "graphql";
 
 import * as schemaAST from "../../graphql/schemas/StarWars.graphql";
-import { intersperse } from "../utils";
 
 import * as styles from "./index.scss";
 
@@ -23,9 +22,7 @@ const TypeDefinition: React.StatelessComponent<{
     <div id={name.value} className={styles["type-definition"]}>
       <div className={styles["type-definition-header"]}>
         <div className={styles["type-definition-name"]}>
-          <div className={styles["type-definition-keyword"]}>
-            <Syntax>{keyword}</Syntax>
-          </div>
+          <Syntax>{keyword}</Syntax>
           {name.element}
         </div>
         <div className={styles["type-definition-description"]}>
@@ -64,7 +61,7 @@ const objectLikeDefinitionTransformer = ({
 const transformers: {
   [tranformerName: string]: (node: any) => any;
 } = {
-  Document: ({ definitions }) => <Node kind="Document">{definitions}</Node>,
+  Document: ({ definitions }) => <Node kind="document">{definitions}</Node>,
 
   SchemaDefinition: ({ operationTypes }) => (
     <Node kind="schema-definition">{operationTypes}</Node>
@@ -109,10 +106,7 @@ const transformers: {
       keyword="union"
       {...{ name, description }}
     >
-      {intersperse(
-        types,
-        <div className={styles["union-type-definition-separator"]}> or </div>
-      )}
+      {types}
     </TypeDefinition>
   ),
 
@@ -158,8 +152,13 @@ const transformers: {
       <a href={`#${name.value}`}>{name.element}</a>
     </Node>
   ),
-  ListType: ({ type }) => <Node kind="list-type-ref">[{type}]</Node>,
-  NonNullType: ({ type }) => <Node kind="non-null-type-ref">{type}!</Node>,
+  ListType: ({ type }) => (
+    <Node kind="list-type-ref">
+      <Syntax>list</Syntax>
+      {type}
+    </Node>
+  ),
+  NonNullType: ({ type }) => <Node kind="non-null-type-ref">{type}</Node>,
 
   Name: ({ value }) => ({ value, element: <Node kind="name">{value}</Node> })
 };
