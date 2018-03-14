@@ -30,7 +30,7 @@
   padding: 1.2em 1.4em;
 
   $hue-spread: 5;
-  $base: adjust-color($primary, $lightness: -45%, $saturation: -75%);
+  $base: adjust-color($primary, $lightness: -45%, $saturation: -70%);
   $from: adjust-color($base, $hue: $hue-spread);
   $to: adjust-color($base, $hue: -$hue-spread);
   @include gradient($from, $to);
@@ -158,6 +158,9 @@ $secondary-dark: adjust-color($secondary, $lightness: -55%, $saturation: -55%);
 
   & > .syntax {
     margin-right: 0.5em;
+
+    opacity: 0.8;
+
     font-weight: 300;
     font-style: italic;
   }
