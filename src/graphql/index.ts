@@ -27,5 +27,3 @@ export const resolvers = {
 };
 
 export const schema = fetchSchema("app", resolvers);
-
-console.log(defaults.schema);
