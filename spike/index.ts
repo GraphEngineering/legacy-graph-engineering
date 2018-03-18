@@ -63,27 +63,36 @@ const typescript = GraphQL.visit(schemaAST, {
     // InputObjectTypeDefinition,
     // InputValueDefinition,
     NamedType: ({ name }: any) => {
-      switch (name) {
-        case "Int":
-          return "number";
+      const convertToTypescriptType = (graphqlType: string) => {
+        switch (graphqlType) {
+          case "Int":
+            return "number";
 
-        case "Float":
-          return "number";
+          case "Float":
+            return "number";
 
-        case "Boolean":
-          return "boolean";
+          case "Boolean":
+            return "boolean";
 
-        case "ID":
-          return "string";
+          case "ID":
+          case "String":
+            return "string";
 
-        default:
-          return name;
-      }
+          default:
+            return graphqlType;
+        }
+      };
+
+      return `${convertToTypescriptType(name)} | null`;
     },
-    ListType: ({ type }: any) => `${type}[]`,
-    NonNullType: ({ type }: any) => type,
+    ListType: ({ type }: any) =>
+      type.includes(" | null")
+        ? type.replace(" | null", "[] | null")
+        : `${type}[]`,
+    NonNullType: ({ type }: any) => type.replace(" | null", ""),
     Name: ({ value }: any) => value
   }
 });
 
 fs.writeFileSync("./spike/types.ts", typescript);
+fs.writeFileSync("./spike/types.json", JSON.stringify(schemaAST, null, 2));
