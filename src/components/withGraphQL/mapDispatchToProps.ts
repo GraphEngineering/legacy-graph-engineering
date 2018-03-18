@@ -8,8 +8,8 @@ export default (
   namedMutationDocuments: NamedOperationDocuments
 ): DispatchProps =>
   Object.keys(namedMutationDocuments).reduce(
-    (actionCreators, mutationName) => ({
-      ...actionCreators,
+    (previous, mutationName) => ({
+      ...previous,
       [mutationName]: () => ({ type: mutationName })
     }),
     {}

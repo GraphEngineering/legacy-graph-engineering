@@ -13,9 +13,9 @@ export const groupOperationDocuments = (
   documentAST: DocumentNode
 ): GroupedOperationDocuments =>
   Object.entries(separateOperations(documentAST)).reduce(
-    (groupedOperationDocuments, [operationName, document]) => {
+    (previous, [operationName, document]) => {
       if (operationName === "") {
-        return groupedOperationDocuments;
+        return previous;
       }
 
       const operationGroup = isOperationDocumentOfType("query", document)
@@ -25,13 +25,13 @@ export const groupOperationDocuments = (
           : undefined;
 
       if (!operationGroup) {
-        return groupedOperationDocuments;
+        return previous;
       }
 
       return {
-        ...groupedOperationDocuments,
+        ...previous,
         [operationGroup]: {
-          ...groupedOperationDocuments[operationGroup],
+          ...previous[operationGroup],
           [operationName]: document
         }
       };
@@ -48,8 +48,6 @@ const isOperationDocumentOfType = (
 ) =>
   document.definitions
     .map(
-      definition =>
-        definition.kind === "OperationDefinition" &&
-        definition.operation === operationType
+      it => it.kind === "OperationDefinition" && it.operation === operationType
     )
     .includes(true);

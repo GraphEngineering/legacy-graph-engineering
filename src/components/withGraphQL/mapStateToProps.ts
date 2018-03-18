@@ -13,8 +13,8 @@ export default (
   namedQueryDocuments: NamedOperationDocuments
 ): MapStateToProps => {
   const namedQuerySources = Object.entries(namedQueryDocuments).reduce(
-    (sources, [name, document]) => ({
-      ...sources,
+    (previous, [name, document]) => ({
+      ...previous,
       [name]: new Source(print(document))
     }),
     {}
@@ -22,8 +22,8 @@ export default (
 
   return state =>
     Object.entries(namedQuerySources).reduce(
-      (results, [name, source]) => ({
-        ...results,
+      (previous, [name, source]) => ({
+        ...previous,
         [name]: graphqlSync(schema, source, state)
       }),
       {}
