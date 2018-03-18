@@ -1,65 +1,65 @@
 interface Query {
-	hero: Character;
-	hero2: Character;
-	reviews: Review[];
-	search: SearchResult[];
-	character: Character;
-	droid: Droid;
-	human: Human;
-	starship: Starship;
+	hero: Character | null;
+	hero2: Character | null;
+	reviews: Review[] | null;
+	search: SearchResult[] | null;
+	character: Character | null;
+	droid: Droid | null;
+	human: Human | null;
+	starship: Starship | null;
 }
 
 interface Mutation {
-	createReview: Review;
+	createReview: Review | null;
 }
 
 interface Human {
 	id: string;
-	name: String;
-	homePlanet: String;
-	height: number;
-	mass: number;
-	friends: Character[];
+	name: string;
+	homePlanet: string | null;
+	height: number | null;
+	mass: number | null;
+	friends: Character[] | null;
 	friendsConnection: FriendsConnection;
 	appearsIn: Episode[];
-	starships: Starship[];
+	starships: Starship[] | null;
 }
 
 interface Droid {
 	id: string;
-	name: String;
-	friends: Character[];
+	name: string;
+	friends: Character[] | null;
 	friendsConnection: FriendsConnection;
 	appearsIn: Episode[];
-	primaryFunction: String;
+	primaryFunction: string | null;
 }
 
 interface FriendsConnection {
-	totalCount: number;
-	edges: FriendsEdge[];
-	friends: Character[];
+	totalCount: number | null;
+	edges: FriendsEdge[] | null;
+	friends: Character[] | null;
 	pageInfo: PageInfo;
 }
 
 interface FriendsEdge {
 	cursor: string;
-	node: Character;
+	node: Character | null;
 }
 
 interface PageInfo {
-	startCursor: string;
-	endCursor: string;
+	startCursor: string | null;
+	endCursor: string | null;
 	hasNextPage: boolean;
 }
 
 interface Review {
 	stars: number;
-	commentary: String;
+	commentary: string | null;
 }
 
 interface Starship {
 	id: string;
-	name: String;
-	length: number;
+	name: string;
+	length: number | null;
 	coordinates: number[][];
 }
