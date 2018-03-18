@@ -12,7 +12,7 @@
     "generate-schema-json": "apollo-codegen introspect-schema src/graphql/schema.graphql --output tmp/schema.json",
     "generate-code": "npm run generate-schema-json && apollo-codegen generate src/components/**/*.tsx --schema tmp/schema.json --target typescript --output src/types/generated/operations.ts",
     "dev": "parcel src/index.html",
-    "start": "nodemon"
+    "dev:spike": "nodemon"
   },
   "author": "CryptoGraph",
   "license": "MIT",
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@cryptograph/typescript-tooling": "^1.0.5",
     "@types/graphql": "^0.12.4",
+    "@types/node": "^9.4.7",
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
     "@types/react-redux": "^5.0.15",
