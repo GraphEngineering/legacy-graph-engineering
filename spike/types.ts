@@ -1,72 +1,82 @@
 interface Query {
-  hero: Character;
-  hero2: Character;
-  reviews: Review[];
-  search: SearchResult[];
-  character: Character;
-  droid: Droid;
-  human: Human;
-  starship: Starship;
+	hero: Character | null
+	hero2: Character | null
+	reviews: Review[] | null
+	search: SearchResult[] | null
+	character: Character | null
+	droid: Droid | null
+	human: Human | null
+	starship: Starship | null
 }
 
 interface Mutation {
-  createReview: Review;
+	createReview: Review | null
 }
 
 type Dankness<T> = T;
 
 enum Episode {
-  NEWHOPE,
-  EMPIRE,
-  JEDI
+	NEWHOPE,
+	EMPIRE,
+	JEDI
 }
 
 interface Character {}
 
 enum LengthUnit {
-  METER,
-  FOOT
+	METER,
+	FOOT
 }
 
 interface Human {
-  homePlanet: String;
-  height: number;
-  mass: number;
-  starships: Starship[];
+	id: string
+	name: string
+	homePlanet: string | null
+	height: number | null
+	mass: number | null
+	friends: Character[] | null
+	friendsConnection: FriendsConnection
+	appearsIn: Episode[]
+	starships: Starship[] | null
 }
 
 interface Droid {
-  primaryFunction: String;
+	id: string
+	name: string
+	friends: Character[] | null
+	friendsConnection: FriendsConnection
+	appearsIn: Episode[]
+	primaryFunction: string | null
 }
 
 interface FriendsConnection {
-  totalCount: number;
-  edges: FriendsEdge[];
-  friends: Character[];
-  pageInfo: PageInfo;
+	totalCount: number | null
+	edges: FriendsEdge[] | null
+	friends: Character[] | null
+	pageInfo: PageInfo
 }
 
 interface FriendsEdge {
-  cursor: string;
-  node: Character;
+	cursor: string
+	node: Character | null
 }
 
 interface PageInfo {
-  startCursor: string;
-  endCursor: string;
-  hasNextPage: boolean;
+	startCursor: string | null
+	endCursor: string | null
+	hasNextPage: boolean
 }
 
 interface Review {
-  stars: number;
-  commentary: String;
+	stars: number
+	commentary: string | null
 }
 
 interface Starship {
-  id: string;
-  name: String;
-  length: number;
-  coordinates: number[][];
+	id: string
+	name: string
+	length: number | null
+	coordinates: number[][]
 }
 
-type SearchResult = Human | Droid | Starship;
+type SearchResult = Human | null | Droid | null | Starship | null;

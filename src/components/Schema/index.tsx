@@ -130,11 +130,17 @@ const InterfaceTypeDefinition = objectLikeDefinitionTransformer(
 
 const FieldDefinition: React.StatelessComponent<
   NamedAndDescribed & {
+    arguments: JSX.Element[];
     type: JSX.Element;
   }
-> = ({ name, description, type }) => (
+> = ({ name, description, arguments: inputArguments, type }) => (
   <Node kind="field-definition">
     <div className={styles["field-definition-name"]}>{name.element}</div>
+    {inputArguments.length > 0 && (
+      <div className={styles["field-definition-arguments"]}>
+        ({inputArguments})
+      </div>
+    )}
     <div className={styles["field-definition-type-ref"]}>{type}</div>
     <div className={styles["field-definition-description"]}>
       <Description>{description}</Description>
@@ -197,7 +203,7 @@ const InputValueDefinition: React.StatelessComponent<
     <div className={styles["input-value-definition-name"]}>{name.element}</div>
     <div className={styles["input-value-definition-type-ref"]}>{type}</div>
     <div className={styles["input-value-definition-default-value"]}>
-      {defaultValue}
+      {JSON.stringify(defaultValue, null, 2)}
     </div>
     <div className={styles["input-value-definition-description"]}>
       <Description>{description}</Description>
