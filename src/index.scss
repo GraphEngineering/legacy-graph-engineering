@@ -1,14 +1,14 @@
 @import "common";
 
 html {
-  background: adjust-color($primary, $lightness: -50%, $saturation: -70%);
+  background: adjust-color($primary, $lightness: 30%, $saturation: -70%);
 
   font-size: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "IBM Plex Sans Condensed", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
 
-  color: white;
+  color: adjust-color($primary, $lightness: -10%, $saturation: -70%);
 }
 
 h1 {

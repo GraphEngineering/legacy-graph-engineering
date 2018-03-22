@@ -29,11 +29,7 @@
   margin: 2em 1.5em;
   padding: 1.2em 1.4em;
 
-  $hue-spread: 5;
-  $base: adjust-color($primary, $lightness: -45%, $saturation: -70%);
-  $from: adjust-color($base, $hue: $hue-spread);
-  $to: adjust-color($base, $hue: -$hue-spread);
-  @include gradient($from, $to);
+  background: adjust-color($primary, $lightness: 38%, $saturation: -70%);
 
   .type-definition-header {
     width: 100%;
@@ -77,25 +73,14 @@
     display: inline-block;
   }
 
-  &:before {
-    content: "";
-
-    margin: 0.5em 0;
-    height: 0.14em;
-    width: 100%;
-
-    opacity: 0.1;
-    background: black;
-  }
-
   .field-definition-name,
   .input-value-definition-name,
   .enum-value-definition-name {
-    font-size: 1.4em;
+    font-size: 1.2em;
   }
 
   .enum-value-definition-name {
-    font-weight: bold;
+    font-weight: 1000;
   }
 
   .field-definition-type-ref,
@@ -137,20 +122,11 @@
 }
 
 $type-ref-padding: 0.3em;
-
 $secondary-dark: adjust-color($secondary, $lightness: -55%, $saturation: -55%);
 
 .named-type-ref,
 .list-type-ref {
-  @include panel;
-  @include gradient-default-inverted($secondary-dark);
-  @include inner-highlight(transparentize($secondary, 0.6));
-
-  padding: $type-ref-padding 0.6em;
-
-  .name {
-    color: adjust-hue($secondary, -5);
-  }
+  padding: $type-ref-padding 0;
 }
 
 .list-type-ref {
@@ -166,30 +142,12 @@ $secondary-dark: adjust-color($secondary, $lightness: -55%, $saturation: -55%);
   }
 }
 
-.non-null-type-ref {
-  @include panel;
-}
-
 .type-definition-body,
 .non-null-type-ref {
   padding: 0;
-
-  > .named-type-ref * {
-    color: darken($secondary, 40%);
-  }
-
-  > .named-type-ref,
-  > .list-type-ref {
-    @include gradient-default($secondary);
-    @include inner-highlight(transparentize(lighten($secondary, 30%), 0.8));
-
-    > * {
-      color: darken($secondary, 40%);
-    }
-  }
 }
 
 .description {
-  font-weight: 200;
-  opacity: 0.36;
+  font-weight: light;
+  opacity: 0.5;
 }

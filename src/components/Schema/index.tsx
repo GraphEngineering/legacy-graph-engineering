@@ -136,15 +136,19 @@ const FieldDefinition: React.StatelessComponent<
 > = ({ name, description, arguments: inputArguments, type }) => (
   <Node kind="field-definition">
     <div className={styles["field-definition-name"]}>{name.element}</div>
-    {inputArguments.length > 0 && (
-      <div className={styles["field-definition-arguments"]}>
-        ({inputArguments})
-      </div>
-    )}
-    <div className={styles["field-definition-type-ref"]}>{type}</div>
     <div className={styles["field-definition-description"]}>
       <Description>{description}</Description>
     </div>
+    {inputArguments.length > 0 && (
+      <React.Fragment>
+        inputs
+        <div className={styles["field-definition-arguments"]}>
+          {inputArguments}
+        </div>
+      </React.Fragment>
+    )}
+    outputs
+    <div className={styles["field-definition-type-ref"]}>{type}</div>
   </Node>
 );
 
