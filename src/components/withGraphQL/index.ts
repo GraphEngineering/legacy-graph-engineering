@@ -1,13 +1,14 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { DocumentNode } from "graphql";
+
+import * as GraphQL from "graphql";
 
 import { groupOperationDocuments } from "./groupOperationDocuments";
 import mapStateToProps from "./mapStateToProps";
 import mapDispatchToProps from "./mapDispatchToProps";
 
 export const withGraphQL = <Operations>(
-  documentAST: DocumentNode,
+  documentAST: GraphQL.DocumentNode,
   component: React.StatelessComponent<Operations>
 ) => {
   const { queries, mutations } = groupOperationDocuments(documentAST);

@@ -1,19 +1,5 @@
 @import "../../common";
 
-@mixin align-and-wrap-children {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-
-  > * {
-    margin-right: 0.4em;
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-}
-
 .document {
   display: flex;
   flex-flow: row wrap;
@@ -67,7 +53,7 @@
 .field-definition,
 .input-value-definition,
 .enum-value-definition {
-  @include align-and-wrap-children;
+  margin: 1em 0;
 
   * {
     display: inline-block;
@@ -94,29 +80,15 @@
   }
 }
 
-.union-type-definition {
-  .type-definition {
-    @include align-and-wrap-children;
-
-    .type-definition-body {
-      @include align-and-wrap-children;
-
-      > * {
-        margin: 0.1em;
-        font-weight: bold;
-        color: $secondary;
-      }
-    }
-  }
-}
-
 .named-type-ref {
-  * {
-    text-decoration: none;
+  a {
+    border-bottom: solid 0.1em transparentize($secondary, 0.6);
+
     color: $secondary;
+    text-decoration: none;
   }
+
   .name {
-    margin-top: -0.1em;
     font-weight: 600;
   }
 }
@@ -133,7 +105,7 @@ $secondary-dark: adjust-color($secondary, $lightness: -55%, $saturation: -55%);
   padding-right: $type-ref-padding;
 
   & > .syntax {
-    margin-right: 0.5em;
+    margin-right: 0.3em;
 
     opacity: 0.8;
 

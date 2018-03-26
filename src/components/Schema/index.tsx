@@ -2,6 +2,7 @@ import * as React from "react";
 import * as GraphQL from "graphql";
 
 import * as schemaAST from "../../graphql/schemas/StarWars.graphql";
+import { intersperse } from "../utils";
 
 import * as styles from "./index.scss";
 
@@ -135,20 +136,22 @@ const FieldDefinition: React.StatelessComponent<
   }
 > = ({ name, description, arguments: inputArguments, type }) => (
   <Node kind="field-definition">
-    <div className={styles["field-definition-name"]}>{name.element}</div>
-    <div className={styles["field-definition-description"]}>
-      <Description>{description}</Description>
+    <div className={styles["field-definition-header"]}>
+      <div className={styles["field-definition-name"]}>{name.element}</div>
     </div>
-    {inputArguments.length > 0 && (
-      <React.Fragment>
-        inputs
+    <div className={styles["field-definition-body"]}>
+      {inputArguments.length > 0 && (
         <div className={styles["field-definition-arguments"]}>
-          {inputArguments}
+          ({intersperse(inputArguments, <React.Fragment>,</React.Fragment>)})
         </div>
-      </React.Fragment>
+      )}
+      :<div className={styles["field-definition-type-ref"]}>{type}</div>
+    </div>
+    {description && (
+      <div className={styles["field-definition-description"]}>
+        <Description>{description}</Description>
+      </div>
     )}
-    outputs
-    <div className={styles["field-definition-type-ref"]}>{type}</div>
   </Node>
 );
 
@@ -232,7 +235,7 @@ const ListType: React.StatelessComponent<GraphQL.ListTypeNode> = ({ type }) => (
 
 const NonNullType: React.StatelessComponent<GraphQL.NonNullTypeNode> = ({
   type
-}) => <Node kind="non-null-type-ref">{type}</Node>;
+}) => <Node kind="non-null-type-ref">{type}!</Node>;
 
 const Name = ({ value }: GraphQL.NameNode): NameValueAndElement => ({
   value,

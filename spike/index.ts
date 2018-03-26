@@ -1,7 +1,7 @@
 console.log("This is for quick and dirty testing...");
 
-import * as fs from "fs";
-import * as GraphQL from "graphql";
+import fs from "fs";
+import * GraphQL from "graphql";
 
 const schemaString = fs.readFileSync("./src/graphql/schemas/StarWars.graphql");
 
@@ -21,8 +21,6 @@ const interfaceDefinitions = GraphQL.visit(schemaAST, {
     Name: ({ value }: any) => value
   }
 });
-
-console.log(interfaceDefinitions);
 
 const typescript = GraphQL.visit(schemaAST, {
   leave: {

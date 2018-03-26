@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { withGraphQL } from "./withGraphQL";
 import { Operations } from "../generated/App";
 
+import { Graph } from "./Graph";
 import { Schema } from "./Schema";
 
 export default withGraphQL<Operations>(
@@ -18,7 +19,8 @@ export default withGraphQL<Operations>(
   `,
   ({ App: { data }, Increment }) => (
     <div>
-      <Schema />
+      <Graph />
+      {/* <Schema /> */}
       <h1 onClick={Increment}>{data && data.count}</h1>
     </div>
   )
