@@ -19,8 +19,8 @@ export default withGraphQL<Operations>(
   `,
   ({ App: { data }, Increment }) => (
     <div>
-      <Graph />
-      {/* <Schema /> */}
+      {/* <Graph /> */}
+      <Schema />
       <h1 onClick={Increment}>{data && data.count}</h1>
     </div>
   )
