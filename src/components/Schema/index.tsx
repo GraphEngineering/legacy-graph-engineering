@@ -2,7 +2,7 @@ import * as React from "react";
 import * as GraphQL from "graphql";
 
 import * as schemaAST from "../../graphql/schemas/StarWars.graphql";
-import { intersperse } from "../utils";
+import { intersperse } from "../../Utils";
 
 import * as styles from "./index.scss";
 

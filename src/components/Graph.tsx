@@ -4,8 +4,8 @@ import * as D3 from "d3";
 export class Graph extends React.Component {
   private svg?: SVGElement;
 
-  constructor(props: {}) {
-    super(props);
+  constructor() {
+    super();
   }
 
   public render() {

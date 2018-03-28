@@ -2,11 +2,5 @@ node_modules
 .cache
 
 dist
-tmp
 
-yarn-error.log
-
-*.iml
 *.log
-.awcache/
-.idea/
