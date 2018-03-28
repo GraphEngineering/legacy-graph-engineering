@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import * as GraphQL from "graphql";
 
-import { groupOperationDocuments } from "./groupOperationDocuments";
+import groupOperationDocuments from "./groupOperationDocuments";
 import mapStateToProps from "./mapStateToProps";
 import mapDispatchToProps from "./mapDispatchToProps";
 

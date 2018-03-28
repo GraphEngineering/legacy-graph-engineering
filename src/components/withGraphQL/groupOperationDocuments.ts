@@ -5,13 +5,11 @@ interface GroupedOperationDocuments {
   mutations: NamedOperationDocuments;
 }
 
-export interface NamedOperationDocuments {
+interface NamedOperationDocuments {
   [operationName: string]: DocumentNode;
 }
 
-export const groupOperationDocuments = (
-  documentAST: DocumentNode
-): GroupedOperationDocuments =>
+export default (documentAST: DocumentNode): GroupedOperationDocuments =>
   Object.entries(separateOperations(documentAST)).reduce(
     (previous, [operationName, document]) => {
       if (operationName === "") {
