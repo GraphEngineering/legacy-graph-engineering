@@ -13,6 +13,7 @@ export const Schema: React.StatelessComponent<{}> = () =>
       SchemaDefinition,
       OperationTypeDefinition,
       StringValue,
+      EnumValue,
       ScalarTypeDefinition,
       ObjectTypeDefinition,
       InterfaceTypeDefinition,
@@ -73,7 +74,12 @@ const objectLikeDefinitionTransformer = (
     fields: JSX.Element[];
   }
 > => ({ name, description, fields }) => (
-  <TypeDefinition kind={kind} keyword={keyword} {...{ name, description }}>
+  <TypeDefinition
+    kind={kind}
+    keyword={keyword}
+    key={name.value}
+    {...{ name, description }}
+  >
     {fields}
   </TypeDefinition>
 );
@@ -109,6 +115,10 @@ const StringValue: React.StatelessComponent<GraphQL.StringValueNode> = ({
   value
 }) => <Node kind="string-value">{value}</Node>;
 
+const EnumValue: React.StatelessComponent<GraphQL.EnumValueNode> = ({
+  value
+}) => <Node kind="enum-value">{value}</Node>;
+
 const ScalarTypeDefinition: React.StatelessComponent<
   NamedAndDescribed & {}
 > = ({ name, description }) => (
@@ -135,7 +145,7 @@ const FieldDefinition: React.StatelessComponent<
     type: JSX.Element;
   }
 > = ({ name, description, arguments: inputArguments, type }) => (
-  <Node kind="field-definition">
+  <Node kind="field-definition" key={name.value}>
     <div className={styles["field-definition-header"]}>
       <div className={styles["field-definition-name"]}>{name.element}</div>
     </div>
@@ -145,7 +155,8 @@ const FieldDefinition: React.StatelessComponent<
           ({intersperse(inputArguments, <React.Fragment>,</React.Fragment>)})
         </div>
       )}
-      :<div className={styles["field-definition-type-ref"]}>{type}</div>
+      :
+      <div className={styles["field-definition-type-ref"]}>{type}</div>
     </div>
     {description && (
       <div className={styles["field-definition-description"]}>
@@ -208,9 +219,10 @@ const InputValueDefinition: React.StatelessComponent<
 > = ({ name, type, description, defaultValue }) => (
   <Node kind="input-value-definition">
     <div className={styles["input-value-definition-name"]}>{name.element}</div>
+    :
     <div className={styles["input-value-definition-type-ref"]}>{type}</div>
     <div className={styles["input-value-definition-default-value"]}>
-      {JSON.stringify(defaultValue, null, 2)}
+      {defaultValue}
     </div>
     <div className={styles["input-value-definition-description"]}>
       <Description>{description}</Description>
@@ -228,14 +240,20 @@ const NamedType: React.StatelessComponent<{
 
 const ListType: React.StatelessComponent<GraphQL.ListTypeNode> = ({ type }) => (
   <Node kind="list-type-ref">
-    <Syntax>list</Syntax>
+    <Syntax>[</Syntax>
     {type}
+    <Syntax>]</Syntax>
   </Node>
 );
 
 const NonNullType: React.StatelessComponent<GraphQL.NonNullTypeNode> = ({
   type
-}) => <Node kind="non-null-type-ref">{type}!</Node>;
+}) => (
+  <Node kind="non-null-type-ref">
+    {type}
+    <Syntax>!</Syntax>
+  </Node>
+);
 
 const Name = ({ value }: GraphQL.NameNode): NameValueAndElement => ({
   value,
