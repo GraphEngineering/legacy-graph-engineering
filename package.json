@@ -15,7 +15,7 @@
   "author": "CryptoGraph",
   "license": "MIT",
   "dependencies": {
-    "d3": "^5.0.0",
+    "d3": "^7.6.1",
     "graphql": "^0.13.1",
     "graphql-tag": "^2.8.0",
     "graphql-tools": "^2.21.0",
